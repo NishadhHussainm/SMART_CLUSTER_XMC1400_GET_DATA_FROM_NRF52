@@ -1,0 +1,770 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "Uart_Data.c"
+  14              	 .section .text.IRQ10_Handler,"ax",%progbits
+  15              	 .align 1
+  16              	 .global IRQ10_Handler
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	IRQ10_Handler:
+  21 0000 08B5     	 push {r3,lr}
+  22 0002 0649     	 ldr r1,.L2
+  23 0004 0222     	 mov r2,#2
+  24 0006 0648     	 ldr r0,.L2+4
+  25 0008 FFF7FEFF 	 bl UART_Receive
+  26 000c 054B     	 ldr r3,.L2+8
+  27              	 
+  28 000e 1A68     	 ldr r2,[r3]
+  29 0010 197B     	 ldrb r1,[r3,#12]
+  30 0012 054B     	 ldr r3,.L2+12
+  31 0014 8B40     	 lsl r3,r3,r1
+  32 0016 5360     	 str r3,[r2,#4]
+  33 0018 08BD     	 pop {r3,pc}
+  34              	.L3:
+  35 001a C046     	 .align 2
+  36              	.L2:
+  37 001c 00000000 	 .word .LANCHOR0
+  38 0020 00000000 	 .word UART_0
+  39 0024 00000000 	 .word DIGITAL_IO_6
+  40 0028 01000100 	 .word 65537
+  42              	 .section .text.setUartdata1aa,"ax",%progbits
+  43              	 .align 1
+  44              	 .global setUartdata1aa
+  45              	 .code 16
+  46              	 .thumb_func
+  48              	setUartdata1aa:
+  49 0000 38B5     	 push {r3,r4,r5,lr}
+  50 0002 FFF7FEFF 	 bl CanH_Get_CAN1aa_Ride_Mode
+  51 0006 0125     	 mov r5,#1
+  52 0008 2C4C     	 ldr r4,.L5
+  53 000a 2840     	 and r0,r5
+  54 000c A378     	 ldrb r3,[r4,#2]
+  55              	 
+  56 000e AB43     	 bic r3,r5
+  57 0010 1843     	 orr r0,r3
+  58 0012 A070     	 strb r0,[r4,#2]
+  59 0014 FFF7FEFF 	 bl CanH_Get_CAN1aa_Low_Battery
+  60 0018 0222     	 mov r2,#2
+  61 001a 2840     	 and r0,r5
+  62 001c 4300     	 lsl r3,r0,#1
+  63 001e A078     	 ldrb r0,[r4,#2]
+  64 0020 9043     	 bic r0,r2
+  65 0022 1843     	 orr r0,r3
+  66 0024 A070     	 strb r0,[r4,#2]
+  67 0026 FFF7FEFF 	 bl CanH_Get_CAN1aa_Side_Stand
+  68 002a 0422     	 mov r2,#4
+  69 002c 2840     	 and r0,r5
+  70 002e 8300     	 lsl r3,r0,#2
+  71 0030 A078     	 ldrb r0,[r4,#2]
+  72 0032 9043     	 bic r0,r2
+  73 0034 1843     	 orr r0,r3
+  74 0036 A070     	 strb r0,[r4,#2]
+  75 0038 FFF7FEFF 	 bl CanH_Get_CAN1aa_Right_Indicator
+  76 003c 0822     	 mov r2,#8
+  77 003e 2840     	 and r0,r5
+  78 0040 C300     	 lsl r3,r0,#3
+  79 0042 A078     	 ldrb r0,[r4,#2]
+  80 0044 9043     	 bic r0,r2
+  81 0046 1843     	 orr r0,r3
+  82 0048 A070     	 strb r0,[r4,#2]
+  83 004a FFF7FEFF 	 bl CanH_Get_CAN1aa_Left_Indicator
+  84 004e 1022     	 mov r2,#16
+  85 0050 2840     	 and r0,r5
+  86 0052 0301     	 lsl r3,r0,#4
+  87 0054 A078     	 ldrb r0,[r4,#2]
+  88 0056 9043     	 bic r0,r2
+  89 0058 1843     	 orr r0,r3
+  90 005a A070     	 strb r0,[r4,#2]
+  91 005c FFF7FEFF 	 bl CanH_Get_CAN1aa_High_Beam
+  92 0060 2022     	 mov r2,#32
+  93 0062 2840     	 and r0,r5
+  94 0064 4301     	 lsl r3,r0,#5
+  95 0066 A078     	 ldrb r0,[r4,#2]
+  96 0068 9043     	 bic r0,r2
+  97 006a 1843     	 orr r0,r3
+  98 006c A070     	 strb r0,[r4,#2]
+  99 006e FFF7FEFF 	 bl CanH_Get_CAN1aa_Low_Beam
+ 100 0072 4023     	 mov r3,#64
+ 101 0074 0540     	 and r5,r0
+ 102 0076 A801     	 lsl r0,r5,#6
+ 103 0078 A578     	 ldrb r5,[r4,#2]
+ 104 007a 9D43     	 bic r5,r3
+ 105 007c 0543     	 orr r5,r0
+ 106 007e A570     	 strb r5,[r4,#2]
+ 107 0080 FFF7FEFF 	 bl CanH_Get_CAN1aa_Parking_Alert
+ 108 0084 7F22     	 mov r2,#127
+ 109 0086 C301     	 lsl r3,r0,#7
+ 110 0088 A078     	 ldrb r0,[r4,#2]
+ 111 008a 1040     	 and r0,r2
+ 112 008c 1843     	 orr r0,r3
+ 113 008e A070     	 strb r0,[r4,#2]
+ 114 0090 FFF7FEFF 	 bl CanH_Get_Vehicle_Battery_Percentage
+ 115 0094 E070     	 strb r0,[r4,#3]
+ 116 0096 FFF7FEFF 	 bl CanH_Get_Vehicle_Speed
+ 117 009a 2071     	 strb r0,[r4,#4]
+ 118 009c FFF7FEFF 	 bl CanH_Get_TripA_Battery_Consumption
+ 119 00a0 6071     	 strb r0,[r4,#5]
+ 120 00a2 FFF7FEFF 	 bl CanH_Get_TripB_Battery_Consumption
+ 121 00a6 A071     	 strb r0,[r4,#6]
+ 122 00a8 FFF7FEFF 	 bl CanH_Get_Odometer_1
+ 123 00ac E071     	 strb r0,[r4,#7]
+ 124 00ae FFF7FEFF 	 bl CanH_Get_Odometer_2
+ 125 00b2 2072     	 strb r0,[r4,#8]
+ 126 00b4 FFF7FEFF 	 bl CanH_Get_Odometer_3
+ 127 00b8 6072     	 strb r0,[r4,#9]
+ 128 00ba 38BD     	 pop {r3,r4,r5,pc}
+ 129              	.L6:
+ 130              	 .align 2
+ 131              	.L5:
+ 132 00bc 00000000 	 .word Uart_Genrl_T
+ 134              	 .section .text.setUartdata2aa,"ax",%progbits
+ 135              	 .align 1
+ 136              	 .global setUartdata2aa
+ 137              	 .code 16
+ 138              	 .thumb_func
+ 140              	setUartdata2aa:
+ 141 0000 10B5     	 push {r4,lr}
+ 142 0002 FFF7FEFF 	 bl CanH_Get_Odometer_1
+ 143 0006 104C     	 ldr r4,.L8
+ 144              	 
+ 145 0008 E071     	 strb r0,[r4,#7]
+ 146 000a FFF7FEFF 	 bl CanH_Get_Odometer_2
+ 147 000e 2072     	 strb r0,[r4,#8]
+ 148 0010 FFF7FEFF 	 bl CanH_Get_Odometer_3
+ 149 0014 6072     	 strb r0,[r4,#9]
+ 150 0016 FFF7FEFF 	 bl CanH_Get_Front_TPMS
+ 151 001a A072     	 strb r0,[r4,#10]
+ 152 001c FFF7FEFF 	 bl CanH_Get_Rear_TPMS
+ 153 0020 E072     	 strb r0,[r4,#11]
+ 154 0022 FFF7FEFF 	 bl CanH_Get_Rest_Range_1
+ 155 0026 2073     	 strb r0,[r4,#12]
+ 156 0028 FFF7FEFF 	 bl CanH_Get_Rest_Range_2
+ 157 002c 6073     	 strb r0,[r4,#13]
+ 158 002e FFF7FEFF 	 bl CanH_Get_Rest_Range_3
+ 159 0032 A073     	 strb r0,[r4,#14]
+ 160 0034 FFF7FEFF 	 bl CanH_Get_TripA_Time_Hr
+ 161 0038 E073     	 strb r0,[r4,#15]
+ 162 003a FFF7FEFF 	 bl CanH_Get_TripA_Time_Min
+ 163 003e 2074     	 strb r0,[r4,#16]
+ 164 0040 FFF7FEFF 	 bl CanH_Get_TripB_Time_Hr
+ 165 0044 6074     	 strb r0,[r4,#17]
+ 166 0046 10BD     	 pop {r4,pc}
+ 167              	.L9:
+ 168              	 .align 2
+ 169              	.L8:
+ 170 0048 00000000 	 .word Uart_Genrl_T
+ 172              	 .section .text.setUartdata3aa,"ax",%progbits
+ 173              	 .align 1
+ 174              	 .global setUartdata3aa
+ 175              	 .code 16
+ 176              	 .thumb_func
+ 178              	setUartdata3aa:
+ 179 0000 10B5     	 push {r4,lr}
+ 180 0002 FFF7FEFF 	 bl CanH_Get_TripA_Time_Hr
+ 181 0006 104C     	 ldr r4,.L11
+ 182              	 
+ 183 0008 E073     	 strb r0,[r4,#15]
+ 184 000a FFF7FEFF 	 bl CanH_Get_TripA_Time_Min
+ 185 000e 2074     	 strb r0,[r4,#16]
+ 186 0010 FFF7FEFF 	 bl CanH_Get_TripB_Time_Hr
+ 187 0014 6074     	 strb r0,[r4,#17]
+ 188 0016 FFF7FEFF 	 bl CanH_Get_TripB_Time_Min
+ 189 001a A074     	 strb r0,[r4,#18]
+ 190 001c FFF7FEFF 	 bl CanH_Get_TripA_1
+ 191 0020 E074     	 strb r0,[r4,#19]
+ 192 0022 FFF7FEFF 	 bl CanH_Get_TripA_2
+ 193 0026 2075     	 strb r0,[r4,#20]
+ 194 0028 FFF7FEFF 	 bl CanH_Get_TripA_3
+ 195 002c 6075     	 strb r0,[r4,#21]
+ 196 002e FFF7FEFF 	 bl CanH_Get_TripB_1
+ 197 0032 A075     	 strb r0,[r4,#22]
+ 198 0034 FFF7FEFF 	 bl CanH_Get_TripB_2
+ 199 0038 E075     	 strb r0,[r4,#23]
+ 200 003a FFF7FEFF 	 bl CanH_Get_TripB_3
+ 201 003e 2076     	 strb r0,[r4,#24]
+ 202 0040 FFF7FEFF 	 bl CAN_Reserved_Bit
+ 203 0044 6076     	 strb r0,[r4,#25]
+ 204 0046 10BD     	 pop {r4,pc}
+ 205              	.L12:
+ 206              	 .align 2
+ 207              	.L11:
+ 208 0048 00000000 	 .word Uart_Genrl_T
+ 210              	 .section .text.set_Button,"ax",%progbits
+ 211              	 .align 1
+ 212              	 .global set_Button
+ 213              	 .code 16
+ 214              	 .thumb_func
+ 216              	set_Button:
+ 217 0000 2123     	 mov r3,#33
+ 218 0002 10B5     	 push {r4,lr}
+ 219 0004 054C     	 ldr r4,.L14
+ 220              	 
+ 221 0006 2370     	 strb r3,[r4]
+ 222 0008 6370     	 strb r3,[r4,#1]
+ 223 000a A376     	 strb r3,[r4,#26]
+ 224 000c 6377     	 strb r3,[r4,#29]
+ 225 000e FFF7FEFF 	 bl Set_button
+ 226 0012 E076     	 strb r0,[r4,#27]
+ 227 0014 FFF7FEFF 	 bl set_Button_reserved_bit
+ 228 0018 2077     	 strb r0,[r4,#28]
+ 229 001a 10BD     	 pop {r4,pc}
+ 230              	.L15:
+ 231              	 .align 2
+ 232              	.L14:
+ 233 001c 00000000 	 .word Uart_Genrl_T
+ 235              	 .section .text.setBle_Genrl_Data,"ax",%progbits
+ 236              	 .align 1
+ 237              	 .global setBle_Genrl_Data
+ 238              	 .code 16
+ 239              	 .thumb_func
+ 241              	setBle_Genrl_Data:
+ 242 0000 38B5     	 push {r3,r4,r5,lr}
+ 243 0002 FFF7FEFF 	 bl set_ble_connectivity_status
+ 244 0006 284C     	 ldr r4,.L17
+ 245 0008 0125     	 mov r5,#1
+ 246 000a A077     	 strb r0,[r4,#30]
+ 247 000c FFF7FEFF 	 bl set_ble_Data_Availablity
+ 248 0010 E37F     	 ldrb r3,[r4,#31]
+ 249 0012 2840     	 and r0,r5
+ 250 0014 AB43     	 bic r3,r5
+ 251 0016 1843     	 orr r0,r3
+ 252 0018 E077     	 strb r0,[r4,#31]
+ 253 001a FFF7FEFF 	 bl set_ble_general_data
+ 254 001e 0222     	 mov r2,#2
+ 255 0020 2840     	 and r0,r5
+ 256 0022 4300     	 lsl r3,r0,#1
+ 257 0024 E07F     	 ldrb r0,[r4,#31]
+ 258              	 
+ 259 0026 9043     	 bic r0,r2
+ 260 0028 1843     	 orr r0,r3
+ 261 002a E077     	 strb r0,[r4,#31]
+ 262 002c FFF7FEFF 	 bl set_ble_phone_call_data
+ 263 0030 0422     	 mov r2,#4
+ 264 0032 2840     	 and r0,r5
+ 265 0034 8300     	 lsl r3,r0,#2
+ 266 0036 E07F     	 ldrb r0,[r4,#31]
+ 267 0038 9043     	 bic r0,r2
+ 268 003a 1843     	 orr r0,r3
+ 269 003c E077     	 strb r0,[r4,#31]
+ 270 003e FFF7FEFF 	 bl set_ble_navigation_data
+ 271 0042 0822     	 mov r2,#8
+ 272 0044 2840     	 and r0,r5
+ 273 0046 C300     	 lsl r3,r0,#3
+ 274 0048 E07F     	 ldrb r0,[r4,#31]
+ 275 004a 9043     	 bic r0,r2
+ 276 004c 1843     	 orr r0,r3
+ 277 004e E077     	 strb r0,[r4,#31]
+ 278 0050 FFF7FEFF 	 bl set_ble_music_player_data
+ 279 0054 1022     	 mov r2,#16
+ 280 0056 2840     	 and r0,r5
+ 281 0058 0301     	 lsl r3,r0,#4
+ 282 005a E07F     	 ldrb r0,[r4,#31]
+ 283 005c 9043     	 bic r0,r2
+ 284 005e 1843     	 orr r0,r3
+ 285 0060 E077     	 strb r0,[r4,#31]
+ 286 0062 FFF7FEFF 	 bl set_ble_gopro_data
+ 287 0066 2022     	 mov r2,#32
+ 288 0068 2840     	 and r0,r5
+ 289 006a 4301     	 lsl r3,r0,#5
+ 290 006c E07F     	 ldrb r0,[r4,#31]
+ 291 006e 9043     	 bic r0,r2
+ 292 0070 1843     	 orr r0,r3
+ 293 0072 E077     	 strb r0,[r4,#31]
+ 294 0074 FFF7FEFF 	 bl set_ble_paired_devices
+ 295 0078 4023     	 mov r3,#64
+ 296 007a 0540     	 and r5,r0
+ 297 007c A801     	 lsl r0,r5,#6
+ 298 007e E57F     	 ldrb r5,[r4,#31]
+ 299 0080 9D43     	 bic r5,r3
+ 300 0082 0543     	 orr r5,r0
+ 301 0084 E577     	 strb r5,[r4,#31]
+ 302 0086 FFF7FEFF 	 bl set_ble_reserved_1
+ 303 008a 7F22     	 mov r2,#127
+ 304 008c C301     	 lsl r3,r0,#7
+ 305 008e E07F     	 ldrb r0,[r4,#31]
+ 306 0090 1040     	 and r0,r2
+ 307 0092 1843     	 orr r0,r3
+ 308 0094 E077     	 strb r0,[r4,#31]
+ 309 0096 FFF7FEFF 	 bl set_Total_message_size
+ 310 009a 631C     	 add r3,r4,#1
+ 311 009c D877     	 strb r0,[r3,#31]
+ 312 009e FFF7FEFF 	 bl set_Reserved_1
+ 313 00a2 0234     	 add r4,r4,#2
+ 314 00a4 E077     	 strb r0,[r4,#31]
+ 315 00a6 38BD     	 pop {r3,r4,r5,pc}
+ 316              	.L18:
+ 317              	 .align 2
+ 318              	.L17:
+ 319 00a8 00000000 	 .word Uart_Genrl_T
+ 321              	 .section .text.setBle_Phcall_Data,"ax",%progbits
+ 322              	 .align 1
+ 323              	 .global setBle_Phcall_Data
+ 324              	 .code 16
+ 325              	 .thumb_func
+ 327              	setBle_Phcall_Data:
+ 328 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 329 0002 FFF7FEFF 	 bl set_Phone_Data_Availablity
+ 330 0006 0125     	 mov r5,#1
+ 331 0008 384C     	 ldr r4,.L20
+ 332 000a 2840     	 and r0,r5
+ 333 000c 2378     	 ldrb r3,[r4]
+ 334 000e 0227     	 mov r7,#2
+ 335 0010 AB43     	 bic r3,r5
+ 336 0012 1843     	 orr r0,r3
+ 337 0014 2070     	 strb r0,[r4]
+ 338 0016 FFF7FEFF 	 bl set_Phone_Message_Notification
+ 339 001a 2840     	 and r0,r5
+ 340 001c 4300     	 lsl r3,r0,#1
+ 341 001e 2078     	 ldrb r0,[r4]
+ 342 0020 0426     	 mov r6,#4
+ 343 0022 B843     	 bic r0,r7
+ 344 0024 1843     	 orr r0,r3
+ 345 0026 2070     	 strb r0,[r4]
+ 346 0028 FFF7FEFF 	 bl set_Phone_Incomming_call
+ 347 002c 2840     	 and r0,r5
+ 348 002e 8300     	 lsl r3,r0,#2
+ 349 0030 2078     	 ldrb r0,[r4]
+ 350              	 
+ 351 0032 B043     	 bic r0,r6
+ 352 0034 1843     	 orr r0,r3
+ 353 0036 2070     	 strb r0,[r4]
+ 354 0038 FFF7FEFF 	 bl set_Phone_Ongoing_Call_notifiaction
+ 355 003c 0822     	 mov r2,#8
+ 356 003e 2840     	 and r0,r5
+ 357 0040 C300     	 lsl r3,r0,#3
+ 358 0042 2078     	 ldrb r0,[r4]
+ 359 0044 9043     	 bic r0,r2
+ 360 0046 1843     	 orr r0,r3
+ 361 0048 2070     	 strb r0,[r4]
+ 362 004a FFF7FEFF 	 bl set_Phone_End_Call
+ 363 004e 1022     	 mov r2,#16
+ 364 0050 2840     	 and r0,r5
+ 365 0052 0301     	 lsl r3,r0,#4
+ 366 0054 2078     	 ldrb r0,[r4]
+ 367 0056 9043     	 bic r0,r2
+ 368 0058 1843     	 orr r0,r3
+ 369 005a 2070     	 strb r0,[r4]
+ 370 005c FFF7FEFF 	 bl set_Phone_Missed_Call_Notification
+ 371 0060 2022     	 mov r2,#32
+ 372 0062 2840     	 and r0,r5
+ 373 0064 4301     	 lsl r3,r0,#5
+ 374 0066 2078     	 ldrb r0,[r4]
+ 375 0068 9043     	 bic r0,r2
+ 376 006a 1843     	 orr r0,r3
+ 377 006c 2070     	 strb r0,[r4]
+ 378 006e FFF7FEFF 	 bl set_phone_reserved_1
+ 379 0072 3F22     	 mov r2,#63
+ 380 0074 8301     	 lsl r3,r0,#6
+ 381 0076 2078     	 ldrb r0,[r4]
+ 382 0078 1040     	 and r0,r2
+ 383 007a 1843     	 orr r0,r3
+ 384 007c 2070     	 strb r0,[r4]
+ 385 007e FFF7FEFF 	 bl set_Phone_volume
+ 386 0082 6070     	 strb r0,[r4,#1]
+ 387 0084 FFF7FEFF 	 bl set_Phone_Ongoing_call_Timer_Start
+ 388 0088 A378     	 ldrb r3,[r4,#2]
+ 389 008a 2840     	 and r0,r5
+ 390 008c AB43     	 bic r3,r5
+ 391 008e 1843     	 orr r0,r3
+ 392 0090 A070     	 strb r0,[r4,#2]
+ 393 0092 FFF7FEFF 	 bl set_Phone_Ongoing_call_Timer_Stop
+ 394 0096 0540     	 and r5,r0
+ 395 0098 6800     	 lsl r0,r5,#1
+ 396 009a A578     	 ldrb r5,[r4,#2]
+ 397 009c BD43     	 bic r5,r7
+ 398 009e 0543     	 orr r5,r0
+ 399 00a0 A570     	 strb r5,[r4,#2]
+ 400 00a2 FFF7FEFF 	 bl set_Phone_Caller_Name_Identifier
+ 401 00a6 E070     	 strb r0,[r4,#3]
+ 402 00a8 FFF7FEFF 	 bl set_Call_name_size
+ 403 00ac 2071     	 strb r0,[r4,#4]
+ 404 00ae FFF7FEFF 	 bl set_Call_name
+ 405 00b2 0F22     	 mov r2,#15
+ 406 00b4 011C     	 mov r1,r0
+ 407 00b6 601D     	 add r0,r4,#5
+ 408 00b8 FFF7FEFF 	 bl memcpy
+ 409 00bc FFF7FEFF 	 bl set_Phone_Caller_Number_Identifier
+ 410 00c0 2075     	 strb r0,[r4,#20]
+ 411 00c2 FFF7FEFF 	 bl set_Call_num_size
+ 412 00c6 6075     	 strb r0,[r4,#21]
+ 413 00c8 FFF7FEFF 	 bl set_Call_num
+ 414 00cc 011C     	 mov r1,r0
+ 415 00ce 201C     	 mov r0,r4
+ 416 00d0 0D22     	 mov r2,#13
+ 417 00d2 1630     	 add r0,r0,#22
+ 418 00d4 FFF7FEFF 	 bl memcpy
+ 419 00d8 FFF7FEFF 	 bl set_Reserved_2
+ 420 00dc 011C     	 mov r1,r0
+ 421 00de 201C     	 mov r0,r4
+ 422 00e0 321C     	 mov r2,r6
+ 423 00e2 2330     	 add r0,r0,#35
+ 424 00e4 FFF7FEFF 	 bl memcpy
+ 425 00e8 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 426              	.L21:
+ 427 00ea C046     	 .align 2
+ 428              	.L20:
+ 429 00ec 00000000 	 .word Uart_Phcall_T
+ 431              	 .section .text.setBle_Navi_Data,"ax",%progbits
+ 432              	 .align 1
+ 433              	 .global setBle_Navi_Data
+ 434              	 .code 16
+ 435              	 .thumb_func
+ 437              	setBle_Navi_Data:
+ 438 0000 38B5     	 push {r3,r4,r5,lr}
+ 439 0002 FFF7FEFF 	 bl set_Navigation_Data_Availablity
+ 440 0006 0125     	 mov r5,#1
+ 441 0008 1D4C     	 ldr r4,.L23
+ 442 000a 2840     	 and r0,r5
+ 443 000c 2378     	 ldrb r3,[r4]
+ 444              	 
+ 445 000e AB43     	 bic r3,r5
+ 446 0010 1843     	 orr r0,r3
+ 447 0012 2070     	 strb r0,[r4]
+ 448 0014 FFF7FEFF 	 bl set_Navigation_Turn_Type
+ 449 0018 4300     	 lsl r3,r0,#1
+ 450 001a 2078     	 ldrb r0,[r4]
+ 451 001c 2840     	 and r0,r5
+ 452 001e 1843     	 orr r0,r3
+ 453 0020 2070     	 strb r0,[r4]
+ 454 0022 FFF7FEFF 	 bl set_Navigation_Turn_Distance_Identifier
+ 455 0026 6070     	 strb r0,[r4,#1]
+ 456 0028 FFF7FEFF 	 bl set_Navigation_Turn_Distance_Size
+ 457 002c A070     	 strb r0,[r4,#2]
+ 458 002e FFF7FEFF 	 bl set_Navigation_Turn_Distance
+ 459 0032 0935     	 add r5,r5,#9
+ 460 0034 2A1C     	 mov r2,r5
+ 461 0036 011C     	 mov r1,r0
+ 462 0038 E01C     	 add r0,r4,#3
+ 463 003a FFF7FEFF 	 bl memcpy
+ 464 003e FFF7FEFF 	 bl set_Navigation_Overall_Distance_Identifier
+ 465 0042 6073     	 strb r0,[r4,#13]
+ 466 0044 FFF7FEFF 	 bl set_Navigation_Overall_Distance_Size
+ 467 0048 A073     	 strb r0,[r4,#14]
+ 468 004a FFF7FEFF 	 bl set_Navigation_Overall_Distance
+ 469 004e 011C     	 mov r1,r0
+ 470 0050 201C     	 mov r0,r4
+ 471 0052 2A1C     	 mov r2,r5
+ 472 0054 0F30     	 add r0,r0,#15
+ 473 0056 FFF7FEFF 	 bl memcpy
+ 474 005a FFF7FEFF 	 bl set_Navigation_ETA_Identifier
+ 475 005e 6076     	 strb r0,[r4,#25]
+ 476 0060 FFF7FEFF 	 bl set_Navigation_ETA_Hours
+ 477 0064 A076     	 strb r0,[r4,#26]
+ 478 0066 FFF7FEFF 	 bl set_Navigation_ETA_Minutes
+ 479 006a E076     	 strb r0,[r4,#27]
+ 480 006c FFF7FEFF 	 bl set_Navigation_Reserved
+ 481 0070 011C     	 mov r1,r0
+ 482 0072 201C     	 mov r0,r4
+ 483 0074 0422     	 mov r2,#4
+ 484 0076 1C30     	 add r0,r0,#28
+ 485 0078 FFF7FEFF 	 bl memcpy
+ 486 007c 38BD     	 pop {r3,r4,r5,pc}
+ 487              	.L24:
+ 488 007e C046     	 .align 2
+ 489              	.L23:
+ 490 0080 00000000 	 .word Uart_Navi_T
+ 492              	 .section .text.setBle_Music_Player_Data,"ax",%progbits
+ 493              	 .align 1
+ 494              	 .global setBle_Music_Player_Data
+ 495              	 .code 16
+ 496              	 .thumb_func
+ 498              	setBle_Music_Player_Data:
+ 499 0000 38B5     	 push {r3,r4,r5,lr}
+ 500 0002 FFF7FEFF 	 bl set_Music_Player_Data_Availablity
+ 501 0006 0125     	 mov r5,#1
+ 502 0008 1D4C     	 ldr r4,.L26
+ 503 000a 2840     	 and r0,r5
+ 504 000c 2378     	 ldrb r3,[r4]
+ 505              	 
+ 506 000e AB43     	 bic r3,r5
+ 507 0010 1843     	 orr r0,r3
+ 508 0012 2070     	 strb r0,[r4]
+ 509 0014 FFF7FEFF 	 bl set_Music_Player_Song_Status
+ 510 0018 0223     	 mov r3,#2
+ 511 001a 0540     	 and r5,r0
+ 512 001c 6800     	 lsl r0,r5,#1
+ 513 001e 2578     	 ldrb r5,[r4]
+ 514 0020 9D43     	 bic r5,r3
+ 515 0022 0543     	 orr r5,r0
+ 516 0024 2570     	 strb r5,[r4]
+ 517 0026 FFF7FEFF 	 bl set_Music_Player_reserved_1
+ 518 002a 0322     	 mov r2,#3
+ 519 002c 8300     	 lsl r3,r0,#2
+ 520 002e 2078     	 ldrb r0,[r4]
+ 521 0030 1040     	 and r0,r2
+ 522 0032 1843     	 orr r0,r3
+ 523 0034 2070     	 strb r0,[r4]
+ 524 0036 FFF7FEFF 	 bl set_Music_Player_Volume
+ 525 003a 6070     	 strb r0,[r4,#1]
+ 526 003c FFF7FEFF 	 bl set_Music_Player_Song_Name_Identifier
+ 527 0040 A070     	 strb r0,[r4,#2]
+ 528 0042 FFF7FEFF 	 bl set_Music_Player_Song_Name_Size
+ 529 0046 E070     	 strb r0,[r4,#3]
+ 530 0048 FFF7FEFF 	 bl set_Music_Player_Song_Name
+ 531 004c 0F22     	 mov r2,#15
+ 532 004e 011C     	 mov r1,r0
+ 533 0050 201D     	 add r0,r4,#4
+ 534 0052 FFF7FEFF 	 bl memcpy
+ 535 0056 FFF7FEFF 	 bl set_Music_Player_Total_Min
+ 536 005a E074     	 strb r0,[r4,#19]
+ 537 005c FFF7FEFF 	 bl set_Music_Player_Total_Sec
+ 538 0060 2075     	 strb r0,[r4,#20]
+ 539 0062 FFF7FEFF 	 bl set_Music_Player_Current_Playing_Min
+ 540 0066 6075     	 strb r0,[r4,#21]
+ 541 0068 FFF7FEFF 	 bl set_Music_Player_Current_Playing_Sec
+ 542 006c A075     	 strb r0,[r4,#22]
+ 543 006e FFF7FEFF 	 bl set_Music_Player_Reserved
+ 544 0072 011C     	 mov r1,r0
+ 545 0074 201C     	 mov r0,r4
+ 546 0076 0422     	 mov r2,#4
+ 547 0078 1730     	 add r0,r0,#23
+ 548 007a FFF7FEFF 	 bl memcpy
+ 549 007e 38BD     	 pop {r3,r4,r5,pc}
+ 550              	.L27:
+ 551              	 .align 2
+ 552              	.L26:
+ 553 0080 00000000 	 .word Uart_Music_T
+ 555              	 .section .text.setUartarr,"ax",%progbits
+ 556              	 .align 1
+ 557              	 .global setUartarr
+ 558              	 .code 16
+ 559              	 .thumb_func
+ 561              	setUartarr:
+ 562 0000 38B5     	 push {r3,r4,r5,lr}
+ 563 0002 041C     	 mov r4,r0
+ 564 0004 FFF7FEFF 	 bl setBle_Genrl_Data
+ 565 0008 144D     	 ldr r5,.L34
+ 566 000a 2222     	 mov r2,#34
+ 567 000c 201C     	 mov r0,r4
+ 568 000e 291C     	 mov r1,r5
+ 569 0010 FFF7FEFF 	 bl memcpy
+ 570 0014 0523     	 mov r3,#5
+ 571 0016 EA7F     	 ldrb r2,[r5,#31]
+ 572 0018 1340     	 and r3,r2
+ 573 001a 052B     	 cmp r3,#5
+ 574 001c 06D1     	 bne .L29
+ 575 001e FFF7FEFF 	 bl setBle_Phcall_Data
+ 576 0022 201C     	 mov r0,r4
+ 577 0024 0E49     	 ldr r1,.L34+4
+ 578 0026 2230     	 add r0,r0,#34
+ 579 0028 2722     	 mov r2,#39
+ 580 002a 14E0     	 b .L32
+ 581              	.L29:
+ 582 002c 0923     	 mov r3,#9
+ 583 002e 1340     	 and r3,r2
+ 584 0030 092B     	 cmp r3,#9
+ 585 0032 06D1     	 bne .L31
+ 586 0034 FFF7FEFF 	 bl setBle_Navi_Data
+ 587 0038 201C     	 mov r0,r4
+ 588 003a 0A49     	 ldr r1,.L34+8
+ 589 003c 2230     	 add r0,r0,#34
+ 590 003e 2022     	 mov r2,#32
+ 591 0040 09E0     	 b .L32
+ 592              	.L31:
+ 593 0042 1123     	 mov r3,#17
+ 594 0044 1340     	 and r3,r2
+ 595 0046 112B     	 cmp r3,#17
+ 596 0048 07D1     	 bne .L28
+ 597 004a FFF7FEFF 	 bl setBle_Music_Player_Data
+ 598 004e 201C     	 mov r0,r4
+ 599 0050 1B22     	 mov r2,#27
+ 600 0052 0549     	 ldr r1,.L34+12
+ 601 0054 2230     	 add r0,r0,#34
+ 602              	.L32:
+ 603 0056 FFF7FEFF 	 bl memcpy
+ 604              	.L28:
+ 605              	 
+ 606 005a 38BD     	 pop {r3,r4,r5,pc}
+ 607              	.L35:
+ 608              	 .align 2
+ 609              	.L34:
+ 610 005c 00000000 	 .word Uart_Genrl_T
+ 611 0060 00000000 	 .word Uart_Phcall_T
+ 612 0064 00000000 	 .word Uart_Navi_T
+ 613 0068 00000000 	 .word Uart_Music_T
+ 615              	 .section .text.IRQ0_Handler,"ax",%progbits
+ 616              	 .align 1
+ 617              	 .global IRQ0_Handler
+ 618              	 .code 16
+ 619              	 .thumb_func
+ 621              	IRQ0_Handler:
+ 622 0000 10B5     	 push {r4,lr}
+ 623 0002 FFF7FEFF 	 bl set_Button
+ 624 0006 054C     	 ldr r4,.L37
+ 625              	 
+ 626 0008 201C     	 mov r0,r4
+ 627 000a FFF7FEFF 	 bl setUartarr
+ 628 000e 211C     	 mov r1,r4
+ 629 0010 6422     	 mov r2,#100
+ 630 0012 0348     	 ldr r0,.L37+4
+ 631 0014 FFF7FEFF 	 bl UART_Transmit
+ 632 0018 10BD     	 pop {r4,pc}
+ 633              	.L38:
+ 634 001a C046     	 .align 2
+ 635              	.L37:
+ 636 001c 00000000 	 .word .LANCHOR1
+ 637 0020 00000000 	 .word UART_0
+ 639              	 .comm Uart_Music_T,27,1
+ 640              	 .comm Uart_Navi_T,32,1
+ 641              	 .comm Uart_Phcall_T,39,1
+ 642              	 .comm Uart_Genrl_T,34,1
+ 643              	 .global From_imx
+ 644              	 .global To_imx
+ 645              	 .section .bss.To_imx,"aw",%nobits
+ 646              	 .set .LANCHOR1,.+0
+ 649              	To_imx:
+ 650 0000 00000000 	 .space 100
+ 650      00000000 
+ 650      00000000 
+ 650      00000000 
+ 650      00000000 
+ 651              	 .section .bss.From_imx,"aw",%nobits
+ 652              	 .set .LANCHOR0,.+0
+ 655              	From_imx:
+ 656 0000 0000     	 .space 2
+ 657              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Uart_Data.c
+    {standard input}:15     .text.IRQ10_Handler:00000000 $t
+    {standard input}:20     .text.IRQ10_Handler:00000000 IRQ10_Handler
+    {standard input}:37     .text.IRQ10_Handler:0000001c $d
+    {standard input}:43     .text.setUartdata1aa:00000000 $t
+    {standard input}:48     .text.setUartdata1aa:00000000 setUartdata1aa
+    {standard input}:132    .text.setUartdata1aa:000000bc $d
+                            *COM*:00000022 Uart_Genrl_T
+    {standard input}:135    .text.setUartdata2aa:00000000 $t
+    {standard input}:140    .text.setUartdata2aa:00000000 setUartdata2aa
+    {standard input}:170    .text.setUartdata2aa:00000048 $d
+    {standard input}:173    .text.setUartdata3aa:00000000 $t
+    {standard input}:178    .text.setUartdata3aa:00000000 setUartdata3aa
+    {standard input}:208    .text.setUartdata3aa:00000048 $d
+    {standard input}:211    .text.set_Button:00000000 $t
+    {standard input}:216    .text.set_Button:00000000 set_Button
+    {standard input}:233    .text.set_Button:0000001c $d
+    {standard input}:236    .text.setBle_Genrl_Data:00000000 $t
+    {standard input}:241    .text.setBle_Genrl_Data:00000000 setBle_Genrl_Data
+    {standard input}:319    .text.setBle_Genrl_Data:000000a8 $d
+    {standard input}:322    .text.setBle_Phcall_Data:00000000 $t
+    {standard input}:327    .text.setBle_Phcall_Data:00000000 setBle_Phcall_Data
+    {standard input}:429    .text.setBle_Phcall_Data:000000ec $d
+                            *COM*:00000027 Uart_Phcall_T
+    {standard input}:432    .text.setBle_Navi_Data:00000000 $t
+    {standard input}:437    .text.setBle_Navi_Data:00000000 setBle_Navi_Data
+    {standard input}:490    .text.setBle_Navi_Data:00000080 $d
+                            *COM*:00000020 Uart_Navi_T
+    {standard input}:493    .text.setBle_Music_Player_Data:00000000 $t
+    {standard input}:498    .text.setBle_Music_Player_Data:00000000 setBle_Music_Player_Data
+    {standard input}:553    .text.setBle_Music_Player_Data:00000080 $d
+                            *COM*:0000001b Uart_Music_T
+    {standard input}:556    .text.setUartarr:00000000 $t
+    {standard input}:561    .text.setUartarr:00000000 setUartarr
+    {standard input}:610    .text.setUartarr:0000005c $d
+    {standard input}:616    .text.IRQ0_Handler:00000000 $t
+    {standard input}:621    .text.IRQ0_Handler:00000000 IRQ0_Handler
+    {standard input}:636    .text.IRQ0_Handler:0000001c $d
+    {standard input}:655    .bss.From_imx:00000000 From_imx
+    {standard input}:649    .bss.To_imx:00000000 To_imx
+    {standard input}:650    .bss.To_imx:00000000 $d
+    {standard input}:656    .bss.From_imx:00000000 $d
+
+UNDEFINED SYMBOLS
+UART_Receive
+UART_0
+DIGITAL_IO_6
+CanH_Get_CAN1aa_Ride_Mode
+CanH_Get_CAN1aa_Low_Battery
+CanH_Get_CAN1aa_Side_Stand
+CanH_Get_CAN1aa_Right_Indicator
+CanH_Get_CAN1aa_Left_Indicator
+CanH_Get_CAN1aa_High_Beam
+CanH_Get_CAN1aa_Low_Beam
+CanH_Get_CAN1aa_Parking_Alert
+CanH_Get_Vehicle_Battery_Percentage
+CanH_Get_Vehicle_Speed
+CanH_Get_TripA_Battery_Consumption
+CanH_Get_TripB_Battery_Consumption
+CanH_Get_Odometer_1
+CanH_Get_Odometer_2
+CanH_Get_Odometer_3
+CanH_Get_Front_TPMS
+CanH_Get_Rear_TPMS
+CanH_Get_Rest_Range_1
+CanH_Get_Rest_Range_2
+CanH_Get_Rest_Range_3
+CanH_Get_TripA_Time_Hr
+CanH_Get_TripA_Time_Min
+CanH_Get_TripB_Time_Hr
+CanH_Get_TripB_Time_Min
+CanH_Get_TripA_1
+CanH_Get_TripA_2
+CanH_Get_TripA_3
+CanH_Get_TripB_1
+CanH_Get_TripB_2
+CanH_Get_TripB_3
+CAN_Reserved_Bit
+Set_button
+set_Button_reserved_bit
+set_ble_connectivity_status
+set_ble_Data_Availablity
+set_ble_general_data
+set_ble_phone_call_data
+set_ble_navigation_data
+set_ble_music_player_data
+set_ble_gopro_data
+set_ble_paired_devices
+set_ble_reserved_1
+set_Total_message_size
+set_Reserved_1
+set_Phone_Data_Availablity
+set_Phone_Message_Notification
+set_Phone_Incomming_call
+set_Phone_Ongoing_Call_notifiaction
+set_Phone_End_Call
+set_Phone_Missed_Call_Notification
+set_phone_reserved_1
+set_Phone_volume
+set_Phone_Ongoing_call_Timer_Start
+set_Phone_Ongoing_call_Timer_Stop
+set_Phone_Caller_Name_Identifier
+set_Call_name_size
+set_Call_name
+memcpy
+set_Phone_Caller_Number_Identifier
+set_Call_num_size
+set_Call_num
+set_Reserved_2
+set_Navigation_Data_Availablity
+set_Navigation_Turn_Type
+set_Navigation_Turn_Distance_Identifier
+set_Navigation_Turn_Distance_Size
+set_Navigation_Turn_Distance
+set_Navigation_Overall_Distance_Identifier
+set_Navigation_Overall_Distance_Size
+set_Navigation_Overall_Distance
+set_Navigation_ETA_Identifier
+set_Navigation_ETA_Hours
+set_Navigation_ETA_Minutes
+set_Navigation_Reserved
+set_Music_Player_Data_Availablity
+set_Music_Player_Song_Status
+set_Music_Player_reserved_1
+set_Music_Player_Volume
+set_Music_Player_Song_Name_Identifier
+set_Music_Player_Song_Name_Size
+set_Music_Player_Song_Name
+set_Music_Player_Total_Min
+set_Music_Player_Total_Sec
+set_Music_Player_Current_Playing_Min
+set_Music_Player_Current_Playing_Sec
+set_Music_Player_Reserved
+UART_Transmit

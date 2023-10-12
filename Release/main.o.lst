@@ -1,0 +1,31 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "main.c"
+  14              	 .section .text.startup.main,"ax",%progbits
+  15              	 .align 1
+  16              	 .global main
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	main:
+  21 0000 08B5     	 push {r3,lr}
+  22 0002 FFF7FEFF 	 bl DAVE_Init
+  23              	.L2:
+  24 0006 FEE7     	 b .L2
+  26              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+    {standard input}:15     .text.startup.main:00000000 $t
+    {standard input}:20     .text.startup.main:00000000 main
+
+UNDEFINED SYMBOLS
+DAVE_Init

@@ -1,0 +1,714 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "PETS_CAN_DATA.c"
+  14              	 .section .text.CANH_SetCAN1aa,"ax",%progbits
+  15              	 .align 1
+  16              	 .global CANH_SetCAN1aa
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	CANH_SetCAN1aa:
+  21 0000 08B5     	 push {r3,lr}
+  22 0002 011C     	 mov r1,r0
+  23 0004 0822     	 mov r2,#8
+  24 0006 0248     	 ldr r0,.L2
+  25 0008 FFF7FEFF 	 bl memcpy
+  26              	 
+  27 000c 08BD     	 pop {r3,pc}
+  28              	.L3:
+  29 000e C046     	 .align 2
+  30              	.L2:
+  31 0010 00000000 	 .word msg1aa
+  33              	 .section .text.IRQ3_Handler,"ax",%progbits
+  34              	 .align 1
+  35              	 .global IRQ3_Handler
+  36              	 .code 16
+  37              	 .thumb_func
+  39              	IRQ3_Handler:
+  40 0000 094B     	 ldr r3,.L5
+  41 0002 10B5     	 push {r4,lr}
+  42 0004 1A68     	 ldr r2,[r3]
+  43 0006 197B     	 ldrb r1,[r3,#12]
+  44 0008 8023     	 mov r3,#128
+  45 000a 5B02     	 lsl r3,r3,#9
+  46 000c 8B40     	 lsl r3,r3,r1
+  47 000e 5360     	 str r3,[r2,#4]
+  48 0010 064B     	 ldr r3,.L5+4
+  49              	 
+  50 0012 D868     	 ldr r0,[r3,#12]
+  51 0014 0468     	 ldr r4,[r0]
+  52 0016 FFF7FEFF 	 bl CAN_NODE_MO_Receive
+  53 001a 201C     	 mov r0,r4
+  54 001c 1030     	 add r0,r0,#16
+  55 001e FFF7FEFF 	 bl CANH_SetCAN1aa
+  56 0022 FFF7FEFF 	 bl setUartdata1aa
+  57 0026 10BD     	 pop {r4,pc}
+  58              	.L6:
+  59              	 .align 2
+  60              	.L5:
+  61 0028 00000000 	 .word DIGITAL_IO_6
+  62 002c 00000000 	 .word CAN_NODE_0
+  64              	 .section .text.CANH_SetCAN2aa,"ax",%progbits
+  65              	 .align 1
+  66              	 .global CANH_SetCAN2aa
+  67              	 .code 16
+  68              	 .thumb_func
+  70              	CANH_SetCAN2aa:
+  71 0000 08B5     	 push {r3,lr}
+  72 0002 011C     	 mov r1,r0
+  73 0004 0822     	 mov r2,#8
+  74 0006 0248     	 ldr r0,.L8
+  75 0008 FFF7FEFF 	 bl memcpy
+  76              	 
+  77 000c 08BD     	 pop {r3,pc}
+  78              	.L9:
+  79 000e C046     	 .align 2
+  80              	.L8:
+  81 0010 00000000 	 .word msg2aa
+  83              	 .section .text.IRQ1_Handler,"ax",%progbits
+  84              	 .align 1
+  85              	 .global IRQ1_Handler
+  86              	 .code 16
+  87              	 .thumb_func
+  89              	IRQ1_Handler:
+  90 0000 064B     	 ldr r3,.L11
+  91 0002 10B5     	 push {r4,lr}
+  92 0004 1869     	 ldr r0,[r3,#16]
+  93              	 
+  94 0006 0468     	 ldr r4,[r0]
+  95 0008 FFF7FEFF 	 bl CAN_NODE_MO_Receive
+  96 000c 201C     	 mov r0,r4
+  97 000e 1030     	 add r0,r0,#16
+  98 0010 FFF7FEFF 	 bl CANH_SetCAN2aa
+  99 0014 FFF7FEFF 	 bl setUartdata2aa
+ 100 0018 10BD     	 pop {r4,pc}
+ 101              	.L12:
+ 102 001a C046     	 .align 2
+ 103              	.L11:
+ 104 001c 00000000 	 .word CAN_NODE_0
+ 106              	 .section .text.CANH_SetCAN3aa,"ax",%progbits
+ 107              	 .align 1
+ 108              	 .global CANH_SetCAN3aa
+ 109              	 .code 16
+ 110              	 .thumb_func
+ 112              	CANH_SetCAN3aa:
+ 113 0000 08B5     	 push {r3,lr}
+ 114 0002 011C     	 mov r1,r0
+ 115 0004 0822     	 mov r2,#8
+ 116 0006 0248     	 ldr r0,.L14
+ 117 0008 FFF7FEFF 	 bl memcpy
+ 118              	 
+ 119 000c 08BD     	 pop {r3,pc}
+ 120              	.L15:
+ 121 000e C046     	 .align 2
+ 122              	.L14:
+ 123 0010 00000000 	 .word msg2cc
+ 125              	 .section .text.IRQ2_Handler,"ax",%progbits
+ 126              	 .align 1
+ 127              	 .global IRQ2_Handler
+ 128              	 .code 16
+ 129              	 .thumb_func
+ 131              	IRQ2_Handler:
+ 132 0000 064B     	 ldr r3,.L17
+ 133 0002 10B5     	 push {r4,lr}
+ 134 0004 5869     	 ldr r0,[r3,#20]
+ 135              	 
+ 136 0006 0468     	 ldr r4,[r0]
+ 137 0008 FFF7FEFF 	 bl CAN_NODE_MO_Receive
+ 138 000c 201C     	 mov r0,r4
+ 139 000e 1030     	 add r0,r0,#16
+ 140 0010 FFF7FEFF 	 bl CANH_SetCAN3aa
+ 141 0014 FFF7FEFF 	 bl setUartdata3aa
+ 142 0018 10BD     	 pop {r4,pc}
+ 143              	.L18:
+ 144 001a C046     	 .align 2
+ 145              	.L17:
+ 146 001c 00000000 	 .word CAN_NODE_0
+ 148              	 .section .text.CanH_Get_CAN1aa_Ride_Mode,"ax",%progbits
+ 149              	 .align 1
+ 150              	 .global CanH_Get_CAN1aa_Ride_Mode
+ 151              	 .code 16
+ 152              	 .thumb_func
+ 154              	CanH_Get_CAN1aa_Ride_Mode:
+ 155 0000 024B     	 ldr r3,.L20
+ 156              	 
+ 157 0002 1878     	 ldrb r0,[r3]
+ 158 0004 C007     	 lsl r0,r0,#31
+ 159 0006 C00F     	 lsr r0,r0,#31
+ 160 0008 C0B2     	 uxtb r0,r0
+ 161 000a 7047     	 bx lr
+ 162              	.L21:
+ 163              	 .align 2
+ 164              	.L20:
+ 165 000c 00000000 	 .word msg1aa
+ 167              	 .section .text.CanH_Get_CAN1aa_Low_Battery,"ax",%progbits
+ 168              	 .align 1
+ 169              	 .global CanH_Get_CAN1aa_Low_Battery
+ 170              	 .code 16
+ 171              	 .thumb_func
+ 173              	CanH_Get_CAN1aa_Low_Battery:
+ 174 0000 024B     	 ldr r3,.L23
+ 175              	 
+ 176 0002 1878     	 ldrb r0,[r3]
+ 177 0004 8007     	 lsl r0,r0,#30
+ 178 0006 C00F     	 lsr r0,r0,#31
+ 179 0008 7047     	 bx lr
+ 180              	.L24:
+ 181 000a C046     	 .align 2
+ 182              	.L23:
+ 183 000c 00000000 	 .word msg1aa
+ 185              	 .section .text.CanH_Get_CAN1aa_Side_Stand,"ax",%progbits
+ 186              	 .align 1
+ 187              	 .global CanH_Get_CAN1aa_Side_Stand
+ 188              	 .code 16
+ 189              	 .thumb_func
+ 191              	CanH_Get_CAN1aa_Side_Stand:
+ 192 0000 024B     	 ldr r3,.L26
+ 193              	 
+ 194 0002 1878     	 ldrb r0,[r3]
+ 195 0004 4007     	 lsl r0,r0,#29
+ 196 0006 C00F     	 lsr r0,r0,#31
+ 197 0008 7047     	 bx lr
+ 198              	.L27:
+ 199 000a C046     	 .align 2
+ 200              	.L26:
+ 201 000c 00000000 	 .word msg1aa
+ 203              	 .section .text.CanH_Get_CAN1aa_Right_Indicator,"ax",%progbits
+ 204              	 .align 1
+ 205              	 .global CanH_Get_CAN1aa_Right_Indicator
+ 206              	 .code 16
+ 207              	 .thumb_func
+ 209              	CanH_Get_CAN1aa_Right_Indicator:
+ 210 0000 024B     	 ldr r3,.L29
+ 211              	 
+ 212 0002 1878     	 ldrb r0,[r3]
+ 213 0004 0007     	 lsl r0,r0,#28
+ 214 0006 C00F     	 lsr r0,r0,#31
+ 215 0008 7047     	 bx lr
+ 216              	.L30:
+ 217 000a C046     	 .align 2
+ 218              	.L29:
+ 219 000c 00000000 	 .word msg1aa
+ 221              	 .section .text.CanH_Get_CAN1aa_Left_Indicator,"ax",%progbits
+ 222              	 .align 1
+ 223              	 .global CanH_Get_CAN1aa_Left_Indicator
+ 224              	 .code 16
+ 225              	 .thumb_func
+ 227              	CanH_Get_CAN1aa_Left_Indicator:
+ 228 0000 024B     	 ldr r3,.L32
+ 229              	 
+ 230 0002 1878     	 ldrb r0,[r3]
+ 231 0004 C006     	 lsl r0,r0,#27
+ 232 0006 C00F     	 lsr r0,r0,#31
+ 233 0008 7047     	 bx lr
+ 234              	.L33:
+ 235 000a C046     	 .align 2
+ 236              	.L32:
+ 237 000c 00000000 	 .word msg1aa
+ 239              	 .section .text.CanH_Get_CAN1aa_High_Beam,"ax",%progbits
+ 240              	 .align 1
+ 241              	 .global CanH_Get_CAN1aa_High_Beam
+ 242              	 .code 16
+ 243              	 .thumb_func
+ 245              	CanH_Get_CAN1aa_High_Beam:
+ 246 0000 024B     	 ldr r3,.L35
+ 247              	 
+ 248 0002 1878     	 ldrb r0,[r3]
+ 249 0004 8006     	 lsl r0,r0,#26
+ 250 0006 C00F     	 lsr r0,r0,#31
+ 251 0008 7047     	 bx lr
+ 252              	.L36:
+ 253 000a C046     	 .align 2
+ 254              	.L35:
+ 255 000c 00000000 	 .word msg1aa
+ 257              	 .section .text.CanH_Get_CAN1aa_Low_Beam,"ax",%progbits
+ 258              	 .align 1
+ 259              	 .global CanH_Get_CAN1aa_Low_Beam
+ 260              	 .code 16
+ 261              	 .thumb_func
+ 263              	CanH_Get_CAN1aa_Low_Beam:
+ 264 0000 024B     	 ldr r3,.L38
+ 265              	 
+ 266 0002 1878     	 ldrb r0,[r3]
+ 267 0004 4006     	 lsl r0,r0,#25
+ 268 0006 C00F     	 lsr r0,r0,#31
+ 269 0008 7047     	 bx lr
+ 270              	.L39:
+ 271 000a C046     	 .align 2
+ 272              	.L38:
+ 273 000c 00000000 	 .word msg1aa
+ 275              	 .section .text.CanH_Get_CAN1aa_Parking_Alert,"ax",%progbits
+ 276              	 .align 1
+ 277              	 .global CanH_Get_CAN1aa_Parking_Alert
+ 278              	 .code 16
+ 279              	 .thumb_func
+ 281              	CanH_Get_CAN1aa_Parking_Alert:
+ 282 0000 014B     	 ldr r3,.L41
+ 283              	 
+ 284 0002 1878     	 ldrb r0,[r3]
+ 285 0004 C009     	 lsr r0,r0,#7
+ 286 0006 7047     	 bx lr
+ 287              	.L42:
+ 288              	 .align 2
+ 289              	.L41:
+ 290 0008 00000000 	 .word msg1aa
+ 292              	 .section .text.CanH_Get_Vehicle_Battery_Percentage,"ax",%progbits
+ 293              	 .align 1
+ 294              	 .global CanH_Get_Vehicle_Battery_Percentage
+ 295              	 .code 16
+ 296              	 .thumb_func
+ 298              	CanH_Get_Vehicle_Battery_Percentage:
+ 299 0000 014B     	 ldr r3,.L44
+ 300              	 
+ 301 0002 5878     	 ldrb r0,[r3,#1]
+ 302 0004 7047     	 bx lr
+ 303              	.L45:
+ 304 0006 C046     	 .align 2
+ 305              	.L44:
+ 306 0008 00000000 	 .word msg1aa
+ 308              	 .section .text.CanH_Get_Vehicle_Speed,"ax",%progbits
+ 309              	 .align 1
+ 310              	 .global CanH_Get_Vehicle_Speed
+ 311              	 .code 16
+ 312              	 .thumb_func
+ 314              	CanH_Get_Vehicle_Speed:
+ 315 0000 014B     	 ldr r3,.L47
+ 316              	 
+ 317 0002 9878     	 ldrb r0,[r3,#2]
+ 318 0004 7047     	 bx lr
+ 319              	.L48:
+ 320 0006 C046     	 .align 2
+ 321              	.L47:
+ 322 0008 00000000 	 .word msg1aa
+ 324              	 .section .text.CanH_Get_TripA_Battery_Consumption,"ax",%progbits
+ 325              	 .align 1
+ 326              	 .global CanH_Get_TripA_Battery_Consumption
+ 327              	 .code 16
+ 328              	 .thumb_func
+ 330              	CanH_Get_TripA_Battery_Consumption:
+ 331 0000 014B     	 ldr r3,.L50
+ 332              	 
+ 333 0002 D878     	 ldrb r0,[r3,#3]
+ 334 0004 7047     	 bx lr
+ 335              	.L51:
+ 336 0006 C046     	 .align 2
+ 337              	.L50:
+ 338 0008 00000000 	 .word msg1aa
+ 340              	 .section .text.CanH_Get_TripB_Battery_Consumption,"ax",%progbits
+ 341              	 .align 1
+ 342              	 .global CanH_Get_TripB_Battery_Consumption
+ 343              	 .code 16
+ 344              	 .thumb_func
+ 346              	CanH_Get_TripB_Battery_Consumption:
+ 347 0000 014B     	 ldr r3,.L53
+ 348              	 
+ 349 0002 1879     	 ldrb r0,[r3,#4]
+ 350 0004 7047     	 bx lr
+ 351              	.L54:
+ 352 0006 C046     	 .align 2
+ 353              	.L53:
+ 354 0008 00000000 	 .word msg1aa
+ 356              	 .section .text.CanH_Get_Odometer_1,"ax",%progbits
+ 357              	 .align 1
+ 358              	 .global CanH_Get_Odometer_1
+ 359              	 .code 16
+ 360              	 .thumb_func
+ 362              	CanH_Get_Odometer_1:
+ 363 0000 014B     	 ldr r3,.L56
+ 364              	 
+ 365 0002 5879     	 ldrb r0,[r3,#5]
+ 366 0004 7047     	 bx lr
+ 367              	.L57:
+ 368 0006 C046     	 .align 2
+ 369              	.L56:
+ 370 0008 00000000 	 .word msg1aa
+ 372              	 .section .text.CanH_Get_Odometer_2,"ax",%progbits
+ 373              	 .align 1
+ 374              	 .global CanH_Get_Odometer_2
+ 375              	 .code 16
+ 376              	 .thumb_func
+ 378              	CanH_Get_Odometer_2:
+ 379 0000 014B     	 ldr r3,.L59
+ 380              	 
+ 381 0002 9879     	 ldrb r0,[r3,#6]
+ 382 0004 7047     	 bx lr
+ 383              	.L60:
+ 384 0006 C046     	 .align 2
+ 385              	.L59:
+ 386 0008 00000000 	 .word msg1aa
+ 388              	 .section .text.CanH_Get_Odometer_3,"ax",%progbits
+ 389              	 .align 1
+ 390              	 .global CanH_Get_Odometer_3
+ 391              	 .code 16
+ 392              	 .thumb_func
+ 394              	CanH_Get_Odometer_3:
+ 395 0000 014B     	 ldr r3,.L62
+ 396              	 
+ 397 0002 D879     	 ldrb r0,[r3,#7]
+ 398 0004 7047     	 bx lr
+ 399              	.L63:
+ 400 0006 C046     	 .align 2
+ 401              	.L62:
+ 402 0008 00000000 	 .word msg1aa
+ 404              	 .section .text.CanH_Get_Front_TPMS,"ax",%progbits
+ 405              	 .align 1
+ 406              	 .global CanH_Get_Front_TPMS
+ 407              	 .code 16
+ 408              	 .thumb_func
+ 410              	CanH_Get_Front_TPMS:
+ 411 0000 014B     	 ldr r3,.L65
+ 412              	 
+ 413 0002 1878     	 ldrb r0,[r3]
+ 414 0004 7047     	 bx lr
+ 415              	.L66:
+ 416 0006 C046     	 .align 2
+ 417              	.L65:
+ 418 0008 00000000 	 .word msg2aa
+ 420              	 .section .text.CanH_Get_Rear_TPMS,"ax",%progbits
+ 421              	 .align 1
+ 422              	 .global CanH_Get_Rear_TPMS
+ 423              	 .code 16
+ 424              	 .thumb_func
+ 426              	CanH_Get_Rear_TPMS:
+ 427 0000 014B     	 ldr r3,.L68
+ 428              	 
+ 429 0002 5878     	 ldrb r0,[r3,#1]
+ 430 0004 7047     	 bx lr
+ 431              	.L69:
+ 432 0006 C046     	 .align 2
+ 433              	.L68:
+ 434 0008 00000000 	 .word msg2aa
+ 436              	 .section .text.CanH_Get_Rest_Range_1,"ax",%progbits
+ 437              	 .align 1
+ 438              	 .global CanH_Get_Rest_Range_1
+ 439              	 .code 16
+ 440              	 .thumb_func
+ 442              	CanH_Get_Rest_Range_1:
+ 443 0000 014B     	 ldr r3,.L71
+ 444              	 
+ 445 0002 9878     	 ldrb r0,[r3,#2]
+ 446 0004 7047     	 bx lr
+ 447              	.L72:
+ 448 0006 C046     	 .align 2
+ 449              	.L71:
+ 450 0008 00000000 	 .word msg2aa
+ 452              	 .section .text.CanH_Get_Rest_Range_2,"ax",%progbits
+ 453              	 .align 1
+ 454              	 .global CanH_Get_Rest_Range_2
+ 455              	 .code 16
+ 456              	 .thumb_func
+ 458              	CanH_Get_Rest_Range_2:
+ 459 0000 014B     	 ldr r3,.L74
+ 460              	 
+ 461 0002 D878     	 ldrb r0,[r3,#3]
+ 462 0004 7047     	 bx lr
+ 463              	.L75:
+ 464 0006 C046     	 .align 2
+ 465              	.L74:
+ 466 0008 00000000 	 .word msg2aa
+ 468              	 .section .text.CanH_Get_Rest_Range_3,"ax",%progbits
+ 469              	 .align 1
+ 470              	 .global CanH_Get_Rest_Range_3
+ 471              	 .code 16
+ 472              	 .thumb_func
+ 474              	CanH_Get_Rest_Range_3:
+ 475 0000 014B     	 ldr r3,.L77
+ 476              	 
+ 477 0002 1879     	 ldrb r0,[r3,#4]
+ 478 0004 7047     	 bx lr
+ 479              	.L78:
+ 480 0006 C046     	 .align 2
+ 481              	.L77:
+ 482 0008 00000000 	 .word msg2aa
+ 484              	 .section .text.CanH_Get_TripA_Time_Hr,"ax",%progbits
+ 485              	 .align 1
+ 486              	 .global CanH_Get_TripA_Time_Hr
+ 487              	 .code 16
+ 488              	 .thumb_func
+ 490              	CanH_Get_TripA_Time_Hr:
+ 491 0000 014B     	 ldr r3,.L80
+ 492              	 
+ 493 0002 5879     	 ldrb r0,[r3,#5]
+ 494 0004 7047     	 bx lr
+ 495              	.L81:
+ 496 0006 C046     	 .align 2
+ 497              	.L80:
+ 498 0008 00000000 	 .word msg2aa
+ 500              	 .section .text.CanH_Get_TripA_Time_Min,"ax",%progbits
+ 501              	 .align 1
+ 502              	 .global CanH_Get_TripA_Time_Min
+ 503              	 .code 16
+ 504              	 .thumb_func
+ 506              	CanH_Get_TripA_Time_Min:
+ 507 0000 014B     	 ldr r3,.L83
+ 508              	 
+ 509 0002 9879     	 ldrb r0,[r3,#6]
+ 510 0004 7047     	 bx lr
+ 511              	.L84:
+ 512 0006 C046     	 .align 2
+ 513              	.L83:
+ 514 0008 00000000 	 .word msg2aa
+ 516              	 .section .text.CanH_Get_TripB_Time_Hr,"ax",%progbits
+ 517              	 .align 1
+ 518              	 .global CanH_Get_TripB_Time_Hr
+ 519              	 .code 16
+ 520              	 .thumb_func
+ 522              	CanH_Get_TripB_Time_Hr:
+ 523 0000 014B     	 ldr r3,.L86
+ 524              	 
+ 525 0002 D879     	 ldrb r0,[r3,#7]
+ 526 0004 7047     	 bx lr
+ 527              	.L87:
+ 528 0006 C046     	 .align 2
+ 529              	.L86:
+ 530 0008 00000000 	 .word msg2aa
+ 532              	 .section .text.CanH_Get_TripB_Time_Min,"ax",%progbits
+ 533              	 .align 1
+ 534              	 .global CanH_Get_TripB_Time_Min
+ 535              	 .code 16
+ 536              	 .thumb_func
+ 538              	CanH_Get_TripB_Time_Min:
+ 539 0000 014B     	 ldr r3,.L89
+ 540              	 
+ 541 0002 1878     	 ldrb r0,[r3]
+ 542 0004 7047     	 bx lr
+ 543              	.L90:
+ 544 0006 C046     	 .align 2
+ 545              	.L89:
+ 546 0008 00000000 	 .word msg2cc
+ 548              	 .section .text.CanH_Get_TripA_1,"ax",%progbits
+ 549              	 .align 1
+ 550              	 .global CanH_Get_TripA_1
+ 551              	 .code 16
+ 552              	 .thumb_func
+ 554              	CanH_Get_TripA_1:
+ 555 0000 014B     	 ldr r3,.L92
+ 556              	 
+ 557 0002 5878     	 ldrb r0,[r3,#1]
+ 558 0004 7047     	 bx lr
+ 559              	.L93:
+ 560 0006 C046     	 .align 2
+ 561              	.L92:
+ 562 0008 00000000 	 .word msg2cc
+ 564              	 .section .text.CanH_Get_TripA_2,"ax",%progbits
+ 565              	 .align 1
+ 566              	 .global CanH_Get_TripA_2
+ 567              	 .code 16
+ 568              	 .thumb_func
+ 570              	CanH_Get_TripA_2:
+ 571 0000 014B     	 ldr r3,.L95
+ 572              	 
+ 573 0002 9878     	 ldrb r0,[r3,#2]
+ 574 0004 7047     	 bx lr
+ 575              	.L96:
+ 576 0006 C046     	 .align 2
+ 577              	.L95:
+ 578 0008 00000000 	 .word msg2cc
+ 580              	 .section .text.CanH_Get_TripA_3,"ax",%progbits
+ 581              	 .align 1
+ 582              	 .global CanH_Get_TripA_3
+ 583              	 .code 16
+ 584              	 .thumb_func
+ 586              	CanH_Get_TripA_3:
+ 587 0000 014B     	 ldr r3,.L98
+ 588              	 
+ 589 0002 D878     	 ldrb r0,[r3,#3]
+ 590 0004 7047     	 bx lr
+ 591              	.L99:
+ 592 0006 C046     	 .align 2
+ 593              	.L98:
+ 594 0008 00000000 	 .word msg2cc
+ 596              	 .section .text.CanH_Get_TripB_1,"ax",%progbits
+ 597              	 .align 1
+ 598              	 .global CanH_Get_TripB_1
+ 599              	 .code 16
+ 600              	 .thumb_func
+ 602              	CanH_Get_TripB_1:
+ 603 0000 014B     	 ldr r3,.L101
+ 604              	 
+ 605 0002 1879     	 ldrb r0,[r3,#4]
+ 606 0004 7047     	 bx lr
+ 607              	.L102:
+ 608 0006 C046     	 .align 2
+ 609              	.L101:
+ 610 0008 00000000 	 .word msg2cc
+ 612              	 .section .text.CanH_Get_TripB_2,"ax",%progbits
+ 613              	 .align 1
+ 614              	 .global CanH_Get_TripB_2
+ 615              	 .code 16
+ 616              	 .thumb_func
+ 618              	CanH_Get_TripB_2:
+ 619 0000 014B     	 ldr r3,.L104
+ 620              	 
+ 621 0002 5879     	 ldrb r0,[r3,#5]
+ 622 0004 7047     	 bx lr
+ 623              	.L105:
+ 624 0006 C046     	 .align 2
+ 625              	.L104:
+ 626 0008 00000000 	 .word msg2cc
+ 628              	 .section .text.CanH_Get_TripB_3,"ax",%progbits
+ 629              	 .align 1
+ 630              	 .global CanH_Get_TripB_3
+ 631              	 .code 16
+ 632              	 .thumb_func
+ 634              	CanH_Get_TripB_3:
+ 635 0000 014B     	 ldr r3,.L107
+ 636              	 
+ 637 0002 9879     	 ldrb r0,[r3,#6]
+ 638 0004 7047     	 bx lr
+ 639              	.L108:
+ 640 0006 C046     	 .align 2
+ 641              	.L107:
+ 642 0008 00000000 	 .word msg2cc
+ 644              	 .section .text.CAN_Reserved_Bit,"ax",%progbits
+ 645              	 .align 1
+ 646              	 .global CAN_Reserved_Bit
+ 647              	 .code 16
+ 648              	 .thumb_func
+ 650              	CAN_Reserved_Bit:
+ 651 0000 014B     	 ldr r3,.L110
+ 652              	 
+ 653 0002 D879     	 ldrb r0,[r3,#7]
+ 654 0004 7047     	 bx lr
+ 655              	.L111:
+ 656 0006 C046     	 .align 2
+ 657              	.L110:
+ 658 0008 00000000 	 .word msg2cc
+ 660              	 .comm msg2cc,8,1
+ 661              	 .comm msg2aa,8,1
+ 662              	 .comm msg1aa,8,1
+ 663              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 PETS_CAN_DATA.c
+    {standard input}:15     .text.CANH_SetCAN1aa:00000000 $t
+    {standard input}:20     .text.CANH_SetCAN1aa:00000000 CANH_SetCAN1aa
+    {standard input}:31     .text.CANH_SetCAN1aa:00000010 $d
+                            *COM*:00000008 msg1aa
+    {standard input}:34     .text.IRQ3_Handler:00000000 $t
+    {standard input}:39     .text.IRQ3_Handler:00000000 IRQ3_Handler
+    {standard input}:61     .text.IRQ3_Handler:00000028 $d
+    {standard input}:65     .text.CANH_SetCAN2aa:00000000 $t
+    {standard input}:70     .text.CANH_SetCAN2aa:00000000 CANH_SetCAN2aa
+    {standard input}:81     .text.CANH_SetCAN2aa:00000010 $d
+                            *COM*:00000008 msg2aa
+    {standard input}:84     .text.IRQ1_Handler:00000000 $t
+    {standard input}:89     .text.IRQ1_Handler:00000000 IRQ1_Handler
+    {standard input}:104    .text.IRQ1_Handler:0000001c $d
+    {standard input}:107    .text.CANH_SetCAN3aa:00000000 $t
+    {standard input}:112    .text.CANH_SetCAN3aa:00000000 CANH_SetCAN3aa
+    {standard input}:123    .text.CANH_SetCAN3aa:00000010 $d
+                            *COM*:00000008 msg2cc
+    {standard input}:126    .text.IRQ2_Handler:00000000 $t
+    {standard input}:131    .text.IRQ2_Handler:00000000 IRQ2_Handler
+    {standard input}:146    .text.IRQ2_Handler:0000001c $d
+    {standard input}:149    .text.CanH_Get_CAN1aa_Ride_Mode:00000000 $t
+    {standard input}:154    .text.CanH_Get_CAN1aa_Ride_Mode:00000000 CanH_Get_CAN1aa_Ride_Mode
+    {standard input}:165    .text.CanH_Get_CAN1aa_Ride_Mode:0000000c $d
+    {standard input}:168    .text.CanH_Get_CAN1aa_Low_Battery:00000000 $t
+    {standard input}:173    .text.CanH_Get_CAN1aa_Low_Battery:00000000 CanH_Get_CAN1aa_Low_Battery
+    {standard input}:183    .text.CanH_Get_CAN1aa_Low_Battery:0000000c $d
+    {standard input}:186    .text.CanH_Get_CAN1aa_Side_Stand:00000000 $t
+    {standard input}:191    .text.CanH_Get_CAN1aa_Side_Stand:00000000 CanH_Get_CAN1aa_Side_Stand
+    {standard input}:201    .text.CanH_Get_CAN1aa_Side_Stand:0000000c $d
+    {standard input}:204    .text.CanH_Get_CAN1aa_Right_Indicator:00000000 $t
+    {standard input}:209    .text.CanH_Get_CAN1aa_Right_Indicator:00000000 CanH_Get_CAN1aa_Right_Indicator
+    {standard input}:219    .text.CanH_Get_CAN1aa_Right_Indicator:0000000c $d
+    {standard input}:222    .text.CanH_Get_CAN1aa_Left_Indicator:00000000 $t
+    {standard input}:227    .text.CanH_Get_CAN1aa_Left_Indicator:00000000 CanH_Get_CAN1aa_Left_Indicator
+    {standard input}:237    .text.CanH_Get_CAN1aa_Left_Indicator:0000000c $d
+    {standard input}:240    .text.CanH_Get_CAN1aa_High_Beam:00000000 $t
+    {standard input}:245    .text.CanH_Get_CAN1aa_High_Beam:00000000 CanH_Get_CAN1aa_High_Beam
+    {standard input}:255    .text.CanH_Get_CAN1aa_High_Beam:0000000c $d
+    {standard input}:258    .text.CanH_Get_CAN1aa_Low_Beam:00000000 $t
+    {standard input}:263    .text.CanH_Get_CAN1aa_Low_Beam:00000000 CanH_Get_CAN1aa_Low_Beam
+    {standard input}:273    .text.CanH_Get_CAN1aa_Low_Beam:0000000c $d
+    {standard input}:276    .text.CanH_Get_CAN1aa_Parking_Alert:00000000 $t
+    {standard input}:281    .text.CanH_Get_CAN1aa_Parking_Alert:00000000 CanH_Get_CAN1aa_Parking_Alert
+    {standard input}:290    .text.CanH_Get_CAN1aa_Parking_Alert:00000008 $d
+    {standard input}:293    .text.CanH_Get_Vehicle_Battery_Percentage:00000000 $t
+    {standard input}:298    .text.CanH_Get_Vehicle_Battery_Percentage:00000000 CanH_Get_Vehicle_Battery_Percentage
+    {standard input}:306    .text.CanH_Get_Vehicle_Battery_Percentage:00000008 $d
+    {standard input}:309    .text.CanH_Get_Vehicle_Speed:00000000 $t
+    {standard input}:314    .text.CanH_Get_Vehicle_Speed:00000000 CanH_Get_Vehicle_Speed
+    {standard input}:322    .text.CanH_Get_Vehicle_Speed:00000008 $d
+    {standard input}:325    .text.CanH_Get_TripA_Battery_Consumption:00000000 $t
+    {standard input}:330    .text.CanH_Get_TripA_Battery_Consumption:00000000 CanH_Get_TripA_Battery_Consumption
+    {standard input}:338    .text.CanH_Get_TripA_Battery_Consumption:00000008 $d
+    {standard input}:341    .text.CanH_Get_TripB_Battery_Consumption:00000000 $t
+    {standard input}:346    .text.CanH_Get_TripB_Battery_Consumption:00000000 CanH_Get_TripB_Battery_Consumption
+    {standard input}:354    .text.CanH_Get_TripB_Battery_Consumption:00000008 $d
+    {standard input}:357    .text.CanH_Get_Odometer_1:00000000 $t
+    {standard input}:362    .text.CanH_Get_Odometer_1:00000000 CanH_Get_Odometer_1
+    {standard input}:370    .text.CanH_Get_Odometer_1:00000008 $d
+    {standard input}:373    .text.CanH_Get_Odometer_2:00000000 $t
+    {standard input}:378    .text.CanH_Get_Odometer_2:00000000 CanH_Get_Odometer_2
+    {standard input}:386    .text.CanH_Get_Odometer_2:00000008 $d
+    {standard input}:389    .text.CanH_Get_Odometer_3:00000000 $t
+    {standard input}:394    .text.CanH_Get_Odometer_3:00000000 CanH_Get_Odometer_3
+    {standard input}:402    .text.CanH_Get_Odometer_3:00000008 $d
+    {standard input}:405    .text.CanH_Get_Front_TPMS:00000000 $t
+    {standard input}:410    .text.CanH_Get_Front_TPMS:00000000 CanH_Get_Front_TPMS
+    {standard input}:418    .text.CanH_Get_Front_TPMS:00000008 $d
+    {standard input}:421    .text.CanH_Get_Rear_TPMS:00000000 $t
+    {standard input}:426    .text.CanH_Get_Rear_TPMS:00000000 CanH_Get_Rear_TPMS
+    {standard input}:434    .text.CanH_Get_Rear_TPMS:00000008 $d
+    {standard input}:437    .text.CanH_Get_Rest_Range_1:00000000 $t
+    {standard input}:442    .text.CanH_Get_Rest_Range_1:00000000 CanH_Get_Rest_Range_1
+    {standard input}:450    .text.CanH_Get_Rest_Range_1:00000008 $d
+    {standard input}:453    .text.CanH_Get_Rest_Range_2:00000000 $t
+    {standard input}:458    .text.CanH_Get_Rest_Range_2:00000000 CanH_Get_Rest_Range_2
+    {standard input}:466    .text.CanH_Get_Rest_Range_2:00000008 $d
+    {standard input}:469    .text.CanH_Get_Rest_Range_3:00000000 $t
+    {standard input}:474    .text.CanH_Get_Rest_Range_3:00000000 CanH_Get_Rest_Range_3
+    {standard input}:482    .text.CanH_Get_Rest_Range_3:00000008 $d
+    {standard input}:485    .text.CanH_Get_TripA_Time_Hr:00000000 $t
+    {standard input}:490    .text.CanH_Get_TripA_Time_Hr:00000000 CanH_Get_TripA_Time_Hr
+    {standard input}:498    .text.CanH_Get_TripA_Time_Hr:00000008 $d
+    {standard input}:501    .text.CanH_Get_TripA_Time_Min:00000000 $t
+    {standard input}:506    .text.CanH_Get_TripA_Time_Min:00000000 CanH_Get_TripA_Time_Min
+    {standard input}:514    .text.CanH_Get_TripA_Time_Min:00000008 $d
+    {standard input}:517    .text.CanH_Get_TripB_Time_Hr:00000000 $t
+    {standard input}:522    .text.CanH_Get_TripB_Time_Hr:00000000 CanH_Get_TripB_Time_Hr
+    {standard input}:530    .text.CanH_Get_TripB_Time_Hr:00000008 $d
+    {standard input}:533    .text.CanH_Get_TripB_Time_Min:00000000 $t
+    {standard input}:538    .text.CanH_Get_TripB_Time_Min:00000000 CanH_Get_TripB_Time_Min
+    {standard input}:546    .text.CanH_Get_TripB_Time_Min:00000008 $d
+    {standard input}:549    .text.CanH_Get_TripA_1:00000000 $t
+    {standard input}:554    .text.CanH_Get_TripA_1:00000000 CanH_Get_TripA_1
+    {standard input}:562    .text.CanH_Get_TripA_1:00000008 $d
+    {standard input}:565    .text.CanH_Get_TripA_2:00000000 $t
+    {standard input}:570    .text.CanH_Get_TripA_2:00000000 CanH_Get_TripA_2
+    {standard input}:578    .text.CanH_Get_TripA_2:00000008 $d
+    {standard input}:581    .text.CanH_Get_TripA_3:00000000 $t
+    {standard input}:586    .text.CanH_Get_TripA_3:00000000 CanH_Get_TripA_3
+    {standard input}:594    .text.CanH_Get_TripA_3:00000008 $d
+    {standard input}:597    .text.CanH_Get_TripB_1:00000000 $t
+    {standard input}:602    .text.CanH_Get_TripB_1:00000000 CanH_Get_TripB_1
+    {standard input}:610    .text.CanH_Get_TripB_1:00000008 $d
+    {standard input}:613    .text.CanH_Get_TripB_2:00000000 $t
+    {standard input}:618    .text.CanH_Get_TripB_2:00000000 CanH_Get_TripB_2
+    {standard input}:626    .text.CanH_Get_TripB_2:00000008 $d
+    {standard input}:629    .text.CanH_Get_TripB_3:00000000 $t
+    {standard input}:634    .text.CanH_Get_TripB_3:00000000 CanH_Get_TripB_3
+    {standard input}:642    .text.CanH_Get_TripB_3:00000008 $d
+    {standard input}:645    .text.CAN_Reserved_Bit:00000000 $t
+    {standard input}:650    .text.CAN_Reserved_Bit:00000000 CAN_Reserved_Bit
+    {standard input}:658    .text.CAN_Reserved_Bit:00000008 $d
+
+UNDEFINED SYMBOLS
+memcpy
+CAN_NODE_MO_Receive
+setUartdata1aa
+DIGITAL_IO_6
+CAN_NODE_0
+setUartdata2aa
+setUartdata3aa

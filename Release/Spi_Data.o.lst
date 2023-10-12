@@ -1,0 +1,1044 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "Spi_Data.c"
+  14              	 .section .text.Spi_rx,"ax",%progbits
+  15              	 .align 1
+  16              	 .global Spi_rx
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	Spi_rx:
+  21 0000 38B5     	 push {r3,r4,r5,lr}
+  22 0002 174C     	 ldr r4,.L9
+  23 0004 174D     	 ldr r5,.L9+4
+  24 0006 211C     	 mov r1,r4
+  25 0008 2B22     	 mov r2,#43
+  26 000a 281C     	 mov r0,r5
+  27 000c FFF7FEFF 	 bl SPI_SLAVE_Receive
+  28 0010 154B     	 ldr r3,.L9+8
+  29 0012 1A68     	 ldr r2,[r3]
+  30 0014 197B     	 ldrb r1,[r3,#12]
+  31 0016 154B     	 ldr r3,.L9+12
+  32 0018 8B40     	 lsl r3,r3,r1
+  33 001a 5360     	 str r3,[r2,#4]
+  34 001c 2378     	 ldrb r3,[r4]
+  35 001e 012B     	 cmp r3,#1
+  36 0020 18D1     	 bne .L3
+  37 0022 1348     	 ldr r0,.L9+16
+  38 0024 211C     	 mov r1,r4
+  39 0026 0422     	 mov r2,#4
+  40 0028 FFF7FEFF 	 bl memcpy
+  41 002c 6378     	 ldrb r3,[r4,#1]
+  42 002e 052B     	 cmp r3,#5
+  43 0030 03D1     	 bne .L4
+  44 0032 211D     	 add r1,r4,#4
+  45 0034 0F48     	 ldr r0,.L9+20
+  46 0036 2722     	 mov r2,#39
+  47 0038 0AE0     	 b .L7
+  48              	.L4:
+  49 003a 092B     	 cmp r3,#9
+  50 003c 03D1     	 bne .L5
+  51 003e 211D     	 add r1,r4,#4
+  52 0040 0D48     	 ldr r0,.L9+24
+  53 0042 2022     	 mov r2,#32
+  54 0044 04E0     	 b .L7
+  55              	.L5:
+  56 0046 112B     	 cmp r3,#17
+  57 0048 04D1     	 bne .L3
+  58 004a 1B22     	 mov r2,#27
+  59 004c 0B48     	 ldr r0,.L9+28
+  60 004e 211D     	 add r1,r4,#4
+  61              	.L7:
+  62 0050 FFF7FEFF 	 bl memcpy
+  63              	.L3:
+  64 0054 281C     	 mov r0,r5
+  65 0056 0A49     	 ldr r1,.L9+32
+  66 0058 2B22     	 mov r2,#43
+  67 005a FFF7FEFF 	 bl SPI_SLAVE_Transmit
+  68              	 
+  69 005e 38BD     	 pop {r3,r4,r5,pc}
+  70              	.L10:
+  71              	 .align 2
+  72              	.L9:
+  73 0060 00000000 	 .word .LANCHOR0
+  74 0064 00000000 	 .word SPI_SLAVE_0
+  75 0068 00000000 	 .word DIGITAL_IO_6
+  76 006c 01000100 	 .word 65537
+  77 0070 00000000 	 .word Spi_Genrl_T
+  78 0074 00000000 	 .word Spi_Phcall_T
+  79 0078 00000000 	 .word Spi_Navi_T
+  80 007c 00000000 	 .word Spi_Music_T
+  81 0080 00000000 	 .word .LANCHOR1
+  83              	 .section .text.set_ble_connectivity_status,"ax",%progbits
+  84              	 .align 1
+  85              	 .global set_ble_connectivity_status
+  86              	 .code 16
+  87              	 .thumb_func
+  89              	set_ble_connectivity_status:
+  90 0000 014B     	 ldr r3,.L12
+  91              	 
+  92 0002 1878     	 ldrb r0,[r3]
+  93 0004 7047     	 bx lr
+  94              	.L13:
+  95 0006 C046     	 .align 2
+  96              	.L12:
+  97 0008 00000000 	 .word Spi_Genrl_T
+  99              	 .section .text.set_ble_Data_Availablity,"ax",%progbits
+ 100              	 .align 1
+ 101              	 .global set_ble_Data_Availablity
+ 102              	 .code 16
+ 103              	 .thumb_func
+ 105              	set_ble_Data_Availablity:
+ 106 0000 024B     	 ldr r3,.L15
+ 107              	 
+ 108 0002 5878     	 ldrb r0,[r3,#1]
+ 109 0004 C007     	 lsl r0,r0,#31
+ 110 0006 C00F     	 lsr r0,r0,#31
+ 111 0008 C0B2     	 uxtb r0,r0
+ 112 000a 7047     	 bx lr
+ 113              	.L16:
+ 114              	 .align 2
+ 115              	.L15:
+ 116 000c 00000000 	 .word Spi_Genrl_T
+ 118              	 .section .text.set_ble_general_data,"ax",%progbits
+ 119              	 .align 1
+ 120              	 .global set_ble_general_data
+ 121              	 .code 16
+ 122              	 .thumb_func
+ 124              	set_ble_general_data:
+ 125 0000 024B     	 ldr r3,.L18
+ 126              	 
+ 127 0002 5878     	 ldrb r0,[r3,#1]
+ 128 0004 8007     	 lsl r0,r0,#30
+ 129 0006 C00F     	 lsr r0,r0,#31
+ 130 0008 7047     	 bx lr
+ 131              	.L19:
+ 132 000a C046     	 .align 2
+ 133              	.L18:
+ 134 000c 00000000 	 .word Spi_Genrl_T
+ 136              	 .section .text.set_ble_phone_call_data,"ax",%progbits
+ 137              	 .align 1
+ 138              	 .global set_ble_phone_call_data
+ 139              	 .code 16
+ 140              	 .thumb_func
+ 142              	set_ble_phone_call_data:
+ 143 0000 024B     	 ldr r3,.L21
+ 144              	 
+ 145 0002 5878     	 ldrb r0,[r3,#1]
+ 146 0004 4007     	 lsl r0,r0,#29
+ 147 0006 C00F     	 lsr r0,r0,#31
+ 148 0008 7047     	 bx lr
+ 149              	.L22:
+ 150 000a C046     	 .align 2
+ 151              	.L21:
+ 152 000c 00000000 	 .word Spi_Genrl_T
+ 154              	 .section .text.set_ble_navigation_data,"ax",%progbits
+ 155              	 .align 1
+ 156              	 .global set_ble_navigation_data
+ 157              	 .code 16
+ 158              	 .thumb_func
+ 160              	set_ble_navigation_data:
+ 161 0000 024B     	 ldr r3,.L24
+ 162              	 
+ 163 0002 5878     	 ldrb r0,[r3,#1]
+ 164 0004 0007     	 lsl r0,r0,#28
+ 165 0006 C00F     	 lsr r0,r0,#31
+ 166 0008 7047     	 bx lr
+ 167              	.L25:
+ 168 000a C046     	 .align 2
+ 169              	.L24:
+ 170 000c 00000000 	 .word Spi_Genrl_T
+ 172              	 .section .text.set_ble_music_player_data,"ax",%progbits
+ 173              	 .align 1
+ 174              	 .global set_ble_music_player_data
+ 175              	 .code 16
+ 176              	 .thumb_func
+ 178              	set_ble_music_player_data:
+ 179 0000 024B     	 ldr r3,.L27
+ 180              	 
+ 181 0002 5878     	 ldrb r0,[r3,#1]
+ 182 0004 C006     	 lsl r0,r0,#27
+ 183 0006 C00F     	 lsr r0,r0,#31
+ 184 0008 7047     	 bx lr
+ 185              	.L28:
+ 186 000a C046     	 .align 2
+ 187              	.L27:
+ 188 000c 00000000 	 .word Spi_Genrl_T
+ 190              	 .section .text.set_ble_gopro_data,"ax",%progbits
+ 191              	 .align 1
+ 192              	 .global set_ble_gopro_data
+ 193              	 .code 16
+ 194              	 .thumb_func
+ 196              	set_ble_gopro_data:
+ 197 0000 024B     	 ldr r3,.L30
+ 198              	 
+ 199 0002 5878     	 ldrb r0,[r3,#1]
+ 200 0004 8006     	 lsl r0,r0,#26
+ 201 0006 C00F     	 lsr r0,r0,#31
+ 202 0008 7047     	 bx lr
+ 203              	.L31:
+ 204 000a C046     	 .align 2
+ 205              	.L30:
+ 206 000c 00000000 	 .word Spi_Genrl_T
+ 208              	 .section .text.set_ble_paired_devices,"ax",%progbits
+ 209              	 .align 1
+ 210              	 .global set_ble_paired_devices
+ 211              	 .code 16
+ 212              	 .thumb_func
+ 214              	set_ble_paired_devices:
+ 215 0000 024B     	 ldr r3,.L33
+ 216              	 
+ 217 0002 5878     	 ldrb r0,[r3,#1]
+ 218 0004 4006     	 lsl r0,r0,#25
+ 219 0006 C00F     	 lsr r0,r0,#31
+ 220 0008 7047     	 bx lr
+ 221              	.L34:
+ 222 000a C046     	 .align 2
+ 223              	.L33:
+ 224 000c 00000000 	 .word Spi_Genrl_T
+ 226              	 .section .text.set_ble_reserved_1,"ax",%progbits
+ 227              	 .align 1
+ 228              	 .global set_ble_reserved_1
+ 229              	 .code 16
+ 230              	 .thumb_func
+ 232              	set_ble_reserved_1:
+ 233 0000 014B     	 ldr r3,.L36
+ 234              	 
+ 235 0002 5878     	 ldrb r0,[r3,#1]
+ 236 0004 C009     	 lsr r0,r0,#7
+ 237 0006 7047     	 bx lr
+ 238              	.L37:
+ 239              	 .align 2
+ 240              	.L36:
+ 241 0008 00000000 	 .word Spi_Genrl_T
+ 243              	 .section .text.set_Total_message_size,"ax",%progbits
+ 244              	 .align 1
+ 245              	 .global set_Total_message_size
+ 246              	 .code 16
+ 247              	 .thumb_func
+ 249              	set_Total_message_size:
+ 250 0000 014B     	 ldr r3,.L39
+ 251              	 
+ 252 0002 9878     	 ldrb r0,[r3,#2]
+ 253 0004 7047     	 bx lr
+ 254              	.L40:
+ 255 0006 C046     	 .align 2
+ 256              	.L39:
+ 257 0008 00000000 	 .word Spi_Genrl_T
+ 259              	 .section .text.set_Reserved_1,"ax",%progbits
+ 260              	 .align 1
+ 261              	 .global set_Reserved_1
+ 262              	 .code 16
+ 263              	 .thumb_func
+ 265              	set_Reserved_1:
+ 266 0000 014B     	 ldr r3,.L42
+ 267              	 
+ 268 0002 D878     	 ldrb r0,[r3,#3]
+ 269 0004 7047     	 bx lr
+ 270              	.L43:
+ 271 0006 C046     	 .align 2
+ 272              	.L42:
+ 273 0008 00000000 	 .word Spi_Genrl_T
+ 275              	 .section .text.set_Phone_Data_Availablity,"ax",%progbits
+ 276              	 .align 1
+ 277              	 .global set_Phone_Data_Availablity
+ 278              	 .code 16
+ 279              	 .thumb_func
+ 281              	set_Phone_Data_Availablity:
+ 282 0000 024B     	 ldr r3,.L45
+ 283              	 
+ 284 0002 1878     	 ldrb r0,[r3]
+ 285 0004 C007     	 lsl r0,r0,#31
+ 286 0006 C00F     	 lsr r0,r0,#31
+ 287 0008 C0B2     	 uxtb r0,r0
+ 288 000a 7047     	 bx lr
+ 289              	.L46:
+ 290              	 .align 2
+ 291              	.L45:
+ 292 000c 00000000 	 .word Spi_Phcall_T
+ 294              	 .section .text.set_Phone_Message_Notification,"ax",%progbits
+ 295              	 .align 1
+ 296              	 .global set_Phone_Message_Notification
+ 297              	 .code 16
+ 298              	 .thumb_func
+ 300              	set_Phone_Message_Notification:
+ 301 0000 024B     	 ldr r3,.L48
+ 302              	 
+ 303 0002 1878     	 ldrb r0,[r3]
+ 304 0004 8007     	 lsl r0,r0,#30
+ 305 0006 C00F     	 lsr r0,r0,#31
+ 306 0008 7047     	 bx lr
+ 307              	.L49:
+ 308 000a C046     	 .align 2
+ 309              	.L48:
+ 310 000c 00000000 	 .word Spi_Phcall_T
+ 312              	 .section .text.set_Phone_Incomming_call,"ax",%progbits
+ 313              	 .align 1
+ 314              	 .global set_Phone_Incomming_call
+ 315              	 .code 16
+ 316              	 .thumb_func
+ 318              	set_Phone_Incomming_call:
+ 319 0000 024B     	 ldr r3,.L51
+ 320              	 
+ 321 0002 1878     	 ldrb r0,[r3]
+ 322 0004 4007     	 lsl r0,r0,#29
+ 323 0006 C00F     	 lsr r0,r0,#31
+ 324 0008 7047     	 bx lr
+ 325              	.L52:
+ 326 000a C046     	 .align 2
+ 327              	.L51:
+ 328 000c 00000000 	 .word Spi_Phcall_T
+ 330              	 .section .text.set_Phone_Ongoing_Call_notifiaction,"ax",%progbits
+ 331              	 .align 1
+ 332              	 .global set_Phone_Ongoing_Call_notifiaction
+ 333              	 .code 16
+ 334              	 .thumb_func
+ 336              	set_Phone_Ongoing_Call_notifiaction:
+ 337 0000 024B     	 ldr r3,.L54
+ 338              	 
+ 339 0002 1878     	 ldrb r0,[r3]
+ 340 0004 0007     	 lsl r0,r0,#28
+ 341 0006 C00F     	 lsr r0,r0,#31
+ 342 0008 7047     	 bx lr
+ 343              	.L55:
+ 344 000a C046     	 .align 2
+ 345              	.L54:
+ 346 000c 00000000 	 .word Spi_Phcall_T
+ 348              	 .section .text.set_Phone_End_Call,"ax",%progbits
+ 349              	 .align 1
+ 350              	 .global set_Phone_End_Call
+ 351              	 .code 16
+ 352              	 .thumb_func
+ 354              	set_Phone_End_Call:
+ 355 0000 024B     	 ldr r3,.L57
+ 356              	 
+ 357 0002 1878     	 ldrb r0,[r3]
+ 358 0004 C006     	 lsl r0,r0,#27
+ 359 0006 C00F     	 lsr r0,r0,#31
+ 360 0008 7047     	 bx lr
+ 361              	.L58:
+ 362 000a C046     	 .align 2
+ 363              	.L57:
+ 364 000c 00000000 	 .word Spi_Phcall_T
+ 366              	 .section .text.set_Phone_Missed_Call_Notification,"ax",%progbits
+ 367              	 .align 1
+ 368              	 .global set_Phone_Missed_Call_Notification
+ 369              	 .code 16
+ 370              	 .thumb_func
+ 372              	set_Phone_Missed_Call_Notification:
+ 373 0000 024B     	 ldr r3,.L60
+ 374              	 
+ 375 0002 1878     	 ldrb r0,[r3]
+ 376 0004 8006     	 lsl r0,r0,#26
+ 377 0006 C00F     	 lsr r0,r0,#31
+ 378 0008 7047     	 bx lr
+ 379              	.L61:
+ 380 000a C046     	 .align 2
+ 381              	.L60:
+ 382 000c 00000000 	 .word Spi_Phcall_T
+ 384              	 .section .text.set_phone_reserved_1,"ax",%progbits
+ 385              	 .align 1
+ 386              	 .global set_phone_reserved_1
+ 387              	 .code 16
+ 388              	 .thumb_func
+ 390              	set_phone_reserved_1:
+ 391 0000 014B     	 ldr r3,.L63
+ 392              	 
+ 393 0002 1878     	 ldrb r0,[r3]
+ 394 0004 8009     	 lsr r0,r0,#6
+ 395 0006 7047     	 bx lr
+ 396              	.L64:
+ 397              	 .align 2
+ 398              	.L63:
+ 399 0008 00000000 	 .word Spi_Phcall_T
+ 401              	 .section .text.set_Phone_volume,"ax",%progbits
+ 402              	 .align 1
+ 403              	 .global set_Phone_volume
+ 404              	 .code 16
+ 405              	 .thumb_func
+ 407              	set_Phone_volume:
+ 408 0000 014B     	 ldr r3,.L66
+ 409              	 
+ 410 0002 5878     	 ldrb r0,[r3,#1]
+ 411 0004 7047     	 bx lr
+ 412              	.L67:
+ 413 0006 C046     	 .align 2
+ 414              	.L66:
+ 415 0008 00000000 	 .word Spi_Phcall_T
+ 417              	 .section .text.set_Phone_Ongoing_call_Timer_Start,"ax",%progbits
+ 418              	 .align 1
+ 419              	 .global set_Phone_Ongoing_call_Timer_Start
+ 420              	 .code 16
+ 421              	 .thumb_func
+ 423              	set_Phone_Ongoing_call_Timer_Start:
+ 424 0000 024B     	 ldr r3,.L69
+ 425              	 
+ 426 0002 9878     	 ldrb r0,[r3,#2]
+ 427 0004 C007     	 lsl r0,r0,#31
+ 428 0006 C00F     	 lsr r0,r0,#31
+ 429 0008 C0B2     	 uxtb r0,r0
+ 430 000a 7047     	 bx lr
+ 431              	.L70:
+ 432              	 .align 2
+ 433              	.L69:
+ 434 000c 00000000 	 .word Spi_Phcall_T
+ 436              	 .section .text.set_Phone_Ongoing_call_Timer_Stop,"ax",%progbits
+ 437              	 .align 1
+ 438              	 .global set_Phone_Ongoing_call_Timer_Stop
+ 439              	 .code 16
+ 440              	 .thumb_func
+ 442              	set_Phone_Ongoing_call_Timer_Stop:
+ 443 0000 024B     	 ldr r3,.L72
+ 444              	 
+ 445 0002 9878     	 ldrb r0,[r3,#2]
+ 446 0004 8007     	 lsl r0,r0,#30
+ 447 0006 C00F     	 lsr r0,r0,#31
+ 448 0008 7047     	 bx lr
+ 449              	.L73:
+ 450 000a C046     	 .align 2
+ 451              	.L72:
+ 452 000c 00000000 	 .word Spi_Phcall_T
+ 454              	 .section .text.set_Phone_Caller_Name_Identifier,"ax",%progbits
+ 455              	 .align 1
+ 456              	 .global set_Phone_Caller_Name_Identifier
+ 457              	 .code 16
+ 458              	 .thumb_func
+ 460              	set_Phone_Caller_Name_Identifier:
+ 461 0000 014B     	 ldr r3,.L75
+ 462              	 
+ 463 0002 D878     	 ldrb r0,[r3,#3]
+ 464 0004 7047     	 bx lr
+ 465              	.L76:
+ 466 0006 C046     	 .align 2
+ 467              	.L75:
+ 468 0008 00000000 	 .word Spi_Phcall_T
+ 470              	 .section .text.set_Call_name_size,"ax",%progbits
+ 471              	 .align 1
+ 472              	 .global set_Call_name_size
+ 473              	 .code 16
+ 474              	 .thumb_func
+ 476              	set_Call_name_size:
+ 477 0000 014B     	 ldr r3,.L78
+ 478              	 
+ 479 0002 1879     	 ldrb r0,[r3,#4]
+ 480 0004 7047     	 bx lr
+ 481              	.L79:
+ 482 0006 C046     	 .align 2
+ 483              	.L78:
+ 484 0008 00000000 	 .word Spi_Phcall_T
+ 486              	 .section .text.set_Call_name,"ax",%progbits
+ 487              	 .align 1
+ 488              	 .global set_Call_name
+ 489              	 .code 16
+ 490              	 .thumb_func
+ 492              	set_Call_name:
+ 493 0000 0048     	 ldr r0,.L81
+ 494              	 
+ 495 0002 7047     	 bx lr
+ 496              	.L82:
+ 497              	 .align 2
+ 498              	.L81:
+ 499 0004 05000000 	 .word Spi_Phcall_T+5
+ 501              	 .section .text.set_Phone_Caller_Number_Identifier,"ax",%progbits
+ 502              	 .align 1
+ 503              	 .global set_Phone_Caller_Number_Identifier
+ 504              	 .code 16
+ 505              	 .thumb_func
+ 507              	set_Phone_Caller_Number_Identifier:
+ 508 0000 014B     	 ldr r3,.L84
+ 509              	 
+ 510 0002 187D     	 ldrb r0,[r3,#20]
+ 511 0004 7047     	 bx lr
+ 512              	.L85:
+ 513 0006 C046     	 .align 2
+ 514              	.L84:
+ 515 0008 00000000 	 .word Spi_Phcall_T
+ 517              	 .section .text.set_Call_num_size,"ax",%progbits
+ 518              	 .align 1
+ 519              	 .global set_Call_num_size
+ 520              	 .code 16
+ 521              	 .thumb_func
+ 523              	set_Call_num_size:
+ 524 0000 014B     	 ldr r3,.L87
+ 525              	 
+ 526 0002 587D     	 ldrb r0,[r3,#21]
+ 527 0004 7047     	 bx lr
+ 528              	.L88:
+ 529 0006 C046     	 .align 2
+ 530              	.L87:
+ 531 0008 00000000 	 .word Spi_Phcall_T
+ 533              	 .section .text.set_Call_num,"ax",%progbits
+ 534              	 .align 1
+ 535              	 .global set_Call_num
+ 536              	 .code 16
+ 537              	 .thumb_func
+ 539              	set_Call_num:
+ 540 0000 0048     	 ldr r0,.L90
+ 541              	 
+ 542 0002 7047     	 bx lr
+ 543              	.L91:
+ 544              	 .align 2
+ 545              	.L90:
+ 546 0004 16000000 	 .word Spi_Phcall_T+22
+ 548              	 .section .text.set_Reserved_2,"ax",%progbits
+ 549              	 .align 1
+ 550              	 .global set_Reserved_2
+ 551              	 .code 16
+ 552              	 .thumb_func
+ 554              	set_Reserved_2:
+ 555 0000 0048     	 ldr r0,.L93
+ 556              	 
+ 557 0002 7047     	 bx lr
+ 558              	.L94:
+ 559              	 .align 2
+ 560              	.L93:
+ 561 0004 23000000 	 .word Spi_Phcall_T+35
+ 563              	 .section .text.set_Navigation_Data_Availablity,"ax",%progbits
+ 564              	 .align 1
+ 565              	 .global set_Navigation_Data_Availablity
+ 566              	 .code 16
+ 567              	 .thumb_func
+ 569              	set_Navigation_Data_Availablity:
+ 570 0000 024B     	 ldr r3,.L96
+ 571              	 
+ 572 0002 1878     	 ldrb r0,[r3]
+ 573 0004 C007     	 lsl r0,r0,#31
+ 574 0006 C00F     	 lsr r0,r0,#31
+ 575 0008 C0B2     	 uxtb r0,r0
+ 576 000a 7047     	 bx lr
+ 577              	.L97:
+ 578              	 .align 2
+ 579              	.L96:
+ 580 000c 00000000 	 .word Spi_Navi_T
+ 582              	 .section .text.set_Navigation_Turn_Type,"ax",%progbits
+ 583              	 .align 1
+ 584              	 .global set_Navigation_Turn_Type
+ 585              	 .code 16
+ 586              	 .thumb_func
+ 588              	set_Navigation_Turn_Type:
+ 589 0000 014B     	 ldr r3,.L99
+ 590              	 
+ 591 0002 1878     	 ldrb r0,[r3]
+ 592 0004 4008     	 lsr r0,r0,#1
+ 593 0006 7047     	 bx lr
+ 594              	.L100:
+ 595              	 .align 2
+ 596              	.L99:
+ 597 0008 00000000 	 .word Spi_Navi_T
+ 599              	 .section .text.set_Navigation_Turn_Distance_Identifier,"ax",%progbits
+ 600              	 .align 1
+ 601              	 .global set_Navigation_Turn_Distance_Identifier
+ 602              	 .code 16
+ 603              	 .thumb_func
+ 605              	set_Navigation_Turn_Distance_Identifier:
+ 606 0000 014B     	 ldr r3,.L102
+ 607              	 
+ 608 0002 5878     	 ldrb r0,[r3,#1]
+ 609 0004 7047     	 bx lr
+ 610              	.L103:
+ 611 0006 C046     	 .align 2
+ 612              	.L102:
+ 613 0008 00000000 	 .word Spi_Navi_T
+ 615              	 .section .text.set_Navigation_Turn_Distance_Size,"ax",%progbits
+ 616              	 .align 1
+ 617              	 .global set_Navigation_Turn_Distance_Size
+ 618              	 .code 16
+ 619              	 .thumb_func
+ 621              	set_Navigation_Turn_Distance_Size:
+ 622 0000 014B     	 ldr r3,.L105
+ 623              	 
+ 624 0002 9878     	 ldrb r0,[r3,#2]
+ 625 0004 7047     	 bx lr
+ 626              	.L106:
+ 627 0006 C046     	 .align 2
+ 628              	.L105:
+ 629 0008 00000000 	 .word Spi_Navi_T
+ 631              	 .section .text.set_Navigation_Turn_Distance,"ax",%progbits
+ 632              	 .align 1
+ 633              	 .global set_Navigation_Turn_Distance
+ 634              	 .code 16
+ 635              	 .thumb_func
+ 637              	set_Navigation_Turn_Distance:
+ 638 0000 0048     	 ldr r0,.L108
+ 639              	 
+ 640 0002 7047     	 bx lr
+ 641              	.L109:
+ 642              	 .align 2
+ 643              	.L108:
+ 644 0004 03000000 	 .word Spi_Navi_T+3
+ 646              	 .section .text.set_Navigation_Overall_Distance_Identifier,"ax",%progbits
+ 647              	 .align 1
+ 648              	 .global set_Navigation_Overall_Distance_Identifier
+ 649              	 .code 16
+ 650              	 .thumb_func
+ 652              	set_Navigation_Overall_Distance_Identifier:
+ 653 0000 014B     	 ldr r3,.L111
+ 654              	 
+ 655 0002 587B     	 ldrb r0,[r3,#13]
+ 656 0004 7047     	 bx lr
+ 657              	.L112:
+ 658 0006 C046     	 .align 2
+ 659              	.L111:
+ 660 0008 00000000 	 .word Spi_Navi_T
+ 662              	 .section .text.set_Navigation_Overall_Distance_Size,"ax",%progbits
+ 663              	 .align 1
+ 664              	 .global set_Navigation_Overall_Distance_Size
+ 665              	 .code 16
+ 666              	 .thumb_func
+ 668              	set_Navigation_Overall_Distance_Size:
+ 669 0000 014B     	 ldr r3,.L114
+ 670              	 
+ 671 0002 987B     	 ldrb r0,[r3,#14]
+ 672 0004 7047     	 bx lr
+ 673              	.L115:
+ 674 0006 C046     	 .align 2
+ 675              	.L114:
+ 676 0008 00000000 	 .word Spi_Navi_T
+ 678              	 .section .text.set_Navigation_Overall_Distance,"ax",%progbits
+ 679              	 .align 1
+ 680              	 .global set_Navigation_Overall_Distance
+ 681              	 .code 16
+ 682              	 .thumb_func
+ 684              	set_Navigation_Overall_Distance:
+ 685 0000 0048     	 ldr r0,.L117
+ 686              	 
+ 687 0002 7047     	 bx lr
+ 688              	.L118:
+ 689              	 .align 2
+ 690              	.L117:
+ 691 0004 0F000000 	 .word Spi_Navi_T+15
+ 693              	 .section .text.set_Navigation_ETA_Identifier,"ax",%progbits
+ 694              	 .align 1
+ 695              	 .global set_Navigation_ETA_Identifier
+ 696              	 .code 16
+ 697              	 .thumb_func
+ 699              	set_Navigation_ETA_Identifier:
+ 700 0000 014B     	 ldr r3,.L120
+ 701              	 
+ 702 0002 587E     	 ldrb r0,[r3,#25]
+ 703 0004 7047     	 bx lr
+ 704              	.L121:
+ 705 0006 C046     	 .align 2
+ 706              	.L120:
+ 707 0008 00000000 	 .word Spi_Navi_T
+ 709              	 .section .text.set_Navigation_ETA_Hours,"ax",%progbits
+ 710              	 .align 1
+ 711              	 .global set_Navigation_ETA_Hours
+ 712              	 .code 16
+ 713              	 .thumb_func
+ 715              	set_Navigation_ETA_Hours:
+ 716 0000 014B     	 ldr r3,.L123
+ 717              	 
+ 718 0002 987E     	 ldrb r0,[r3,#26]
+ 719 0004 7047     	 bx lr
+ 720              	.L124:
+ 721 0006 C046     	 .align 2
+ 722              	.L123:
+ 723 0008 00000000 	 .word Spi_Navi_T
+ 725              	 .section .text.set_Navigation_ETA_Minutes,"ax",%progbits
+ 726              	 .align 1
+ 727              	 .global set_Navigation_ETA_Minutes
+ 728              	 .code 16
+ 729              	 .thumb_func
+ 731              	set_Navigation_ETA_Minutes:
+ 732 0000 014B     	 ldr r3,.L126
+ 733              	 
+ 734 0002 D87E     	 ldrb r0,[r3,#27]
+ 735 0004 7047     	 bx lr
+ 736              	.L127:
+ 737 0006 C046     	 .align 2
+ 738              	.L126:
+ 739 0008 00000000 	 .word Spi_Navi_T
+ 741              	 .section .text.set_Navigation_Reserved,"ax",%progbits
+ 742              	 .align 1
+ 743              	 .global set_Navigation_Reserved
+ 744              	 .code 16
+ 745              	 .thumb_func
+ 747              	set_Navigation_Reserved:
+ 748 0000 0048     	 ldr r0,.L129
+ 749              	 
+ 750 0002 7047     	 bx lr
+ 751              	.L130:
+ 752              	 .align 2
+ 753              	.L129:
+ 754 0004 1C000000 	 .word Spi_Navi_T+28
+ 756              	 .section .text.set_Music_Player_Data_Availablity,"ax",%progbits
+ 757              	 .align 1
+ 758              	 .global set_Music_Player_Data_Availablity
+ 759              	 .code 16
+ 760              	 .thumb_func
+ 762              	set_Music_Player_Data_Availablity:
+ 763 0000 024B     	 ldr r3,.L132
+ 764              	 
+ 765 0002 1878     	 ldrb r0,[r3]
+ 766 0004 C007     	 lsl r0,r0,#31
+ 767 0006 C00F     	 lsr r0,r0,#31
+ 768 0008 C0B2     	 uxtb r0,r0
+ 769 000a 7047     	 bx lr
+ 770              	.L133:
+ 771              	 .align 2
+ 772              	.L132:
+ 773 000c 00000000 	 .word Spi_Music_T
+ 775              	 .section .text.set_Music_Player_Song_Status,"ax",%progbits
+ 776              	 .align 1
+ 777              	 .global set_Music_Player_Song_Status
+ 778              	 .code 16
+ 779              	 .thumb_func
+ 781              	set_Music_Player_Song_Status:
+ 782 0000 024B     	 ldr r3,.L135
+ 783              	 
+ 784 0002 1878     	 ldrb r0,[r3]
+ 785 0004 8007     	 lsl r0,r0,#30
+ 786 0006 C00F     	 lsr r0,r0,#31
+ 787 0008 7047     	 bx lr
+ 788              	.L136:
+ 789 000a C046     	 .align 2
+ 790              	.L135:
+ 791 000c 00000000 	 .word Spi_Music_T
+ 793              	 .section .text.set_Music_Player_reserved_1,"ax",%progbits
+ 794              	 .align 1
+ 795              	 .global set_Music_Player_reserved_1
+ 796              	 .code 16
+ 797              	 .thumb_func
+ 799              	set_Music_Player_reserved_1:
+ 800 0000 014B     	 ldr r3,.L138
+ 801              	 
+ 802 0002 1878     	 ldrb r0,[r3]
+ 803 0004 8008     	 lsr r0,r0,#2
+ 804 0006 7047     	 bx lr
+ 805              	.L139:
+ 806              	 .align 2
+ 807              	.L138:
+ 808 0008 00000000 	 .word Spi_Music_T
+ 810              	 .section .text.set_Music_Player_Volume,"ax",%progbits
+ 811              	 .align 1
+ 812              	 .global set_Music_Player_Volume
+ 813              	 .code 16
+ 814              	 .thumb_func
+ 816              	set_Music_Player_Volume:
+ 817 0000 014B     	 ldr r3,.L141
+ 818              	 
+ 819 0002 5878     	 ldrb r0,[r3,#1]
+ 820 0004 7047     	 bx lr
+ 821              	.L142:
+ 822 0006 C046     	 .align 2
+ 823              	.L141:
+ 824 0008 00000000 	 .word Spi_Music_T
+ 826              	 .section .text.set_Music_Player_Song_Name_Identifier,"ax",%progbits
+ 827              	 .align 1
+ 828              	 .global set_Music_Player_Song_Name_Identifier
+ 829              	 .code 16
+ 830              	 .thumb_func
+ 832              	set_Music_Player_Song_Name_Identifier:
+ 833 0000 014B     	 ldr r3,.L144
+ 834              	 
+ 835 0002 9878     	 ldrb r0,[r3,#2]
+ 836 0004 7047     	 bx lr
+ 837              	.L145:
+ 838 0006 C046     	 .align 2
+ 839              	.L144:
+ 840 0008 00000000 	 .word Spi_Music_T
+ 842              	 .section .text.set_Music_Player_Song_Name_Size,"ax",%progbits
+ 843              	 .align 1
+ 844              	 .global set_Music_Player_Song_Name_Size
+ 845              	 .code 16
+ 846              	 .thumb_func
+ 848              	set_Music_Player_Song_Name_Size:
+ 849 0000 014B     	 ldr r3,.L147
+ 850              	 
+ 851 0002 D878     	 ldrb r0,[r3,#3]
+ 852 0004 7047     	 bx lr
+ 853              	.L148:
+ 854 0006 C046     	 .align 2
+ 855              	.L147:
+ 856 0008 00000000 	 .word Spi_Music_T
+ 858              	 .section .text.set_Music_Player_Song_Name,"ax",%progbits
+ 859              	 .align 1
+ 860              	 .global set_Music_Player_Song_Name
+ 861              	 .code 16
+ 862              	 .thumb_func
+ 864              	set_Music_Player_Song_Name:
+ 865 0000 0048     	 ldr r0,.L150
+ 866              	 
+ 867 0002 7047     	 bx lr
+ 868              	.L151:
+ 869              	 .align 2
+ 870              	.L150:
+ 871 0004 04000000 	 .word Spi_Music_T+4
+ 873              	 .section .text.set_Music_Player_Total_Min,"ax",%progbits
+ 874              	 .align 1
+ 875              	 .global set_Music_Player_Total_Min
+ 876              	 .code 16
+ 877              	 .thumb_func
+ 879              	set_Music_Player_Total_Min:
+ 880 0000 014B     	 ldr r3,.L153
+ 881              	 
+ 882 0002 D87C     	 ldrb r0,[r3,#19]
+ 883 0004 7047     	 bx lr
+ 884              	.L154:
+ 885 0006 C046     	 .align 2
+ 886              	.L153:
+ 887 0008 00000000 	 .word Spi_Music_T
+ 889              	 .section .text.set_Music_Player_Total_Sec,"ax",%progbits
+ 890              	 .align 1
+ 891              	 .global set_Music_Player_Total_Sec
+ 892              	 .code 16
+ 893              	 .thumb_func
+ 895              	set_Music_Player_Total_Sec:
+ 896 0000 014B     	 ldr r3,.L156
+ 897              	 
+ 898 0002 187D     	 ldrb r0,[r3,#20]
+ 899 0004 7047     	 bx lr
+ 900              	.L157:
+ 901 0006 C046     	 .align 2
+ 902              	.L156:
+ 903 0008 00000000 	 .word Spi_Music_T
+ 905              	 .section .text.set_Music_Player_Current_Playing_Min,"ax",%progbits
+ 906              	 .align 1
+ 907              	 .global set_Music_Player_Current_Playing_Min
+ 908              	 .code 16
+ 909              	 .thumb_func
+ 911              	set_Music_Player_Current_Playing_Min:
+ 912 0000 014B     	 ldr r3,.L159
+ 913              	 
+ 914 0002 587D     	 ldrb r0,[r3,#21]
+ 915 0004 7047     	 bx lr
+ 916              	.L160:
+ 917 0006 C046     	 .align 2
+ 918              	.L159:
+ 919 0008 00000000 	 .word Spi_Music_T
+ 921              	 .section .text.set_Music_Player_Current_Playing_Sec,"ax",%progbits
+ 922              	 .align 1
+ 923              	 .global set_Music_Player_Current_Playing_Sec
+ 924              	 .code 16
+ 925              	 .thumb_func
+ 927              	set_Music_Player_Current_Playing_Sec:
+ 928 0000 014B     	 ldr r3,.L162
+ 929              	 
+ 930 0002 987D     	 ldrb r0,[r3,#22]
+ 931 0004 7047     	 bx lr
+ 932              	.L163:
+ 933 0006 C046     	 .align 2
+ 934              	.L162:
+ 935 0008 00000000 	 .word Spi_Music_T
+ 937              	 .section .text.set_Music_Player_Reserved,"ax",%progbits
+ 938              	 .align 1
+ 939              	 .global set_Music_Player_Reserved
+ 940              	 .code 16
+ 941              	 .thumb_func
+ 943              	set_Music_Player_Reserved:
+ 944 0000 0048     	 ldr r0,.L165
+ 945              	 
+ 946 0002 7047     	 bx lr
+ 947              	.L166:
+ 948              	 .align 2
+ 949              	.L165:
+ 950 0004 17000000 	 .word Spi_Music_T+23
+ 952              	 .comm Spi_Music_T,27,1
+ 953              	 .comm Spi_Navi_T,32,1
+ 954              	 .comm Spi_Phcall_T,39,1
+ 955              	 .comm Spi_Genrl_T,4,1
+ 956              	 .global Send_Data
+ 957              	 .global Spi_Data
+ 958              	 .section .bss.Send_Data,"aw",%nobits
+ 959              	 .set .LANCHOR1,.+0
+ 962              	Send_Data:
+ 963 0000 00000000 	 .space 43
+ 963      00000000 
+ 963      00000000 
+ 963      00000000 
+ 963      00000000 
+ 964              	 .section .bss.Spi_Data,"aw",%nobits
+ 965              	 .set .LANCHOR0,.+0
+ 968              	Spi_Data:
+ 969 0000 00000000 	 .space 43
+ 969      00000000 
+ 969      00000000 
+ 969      00000000 
+ 969      00000000 
+ 970              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Spi_Data.c
+    {standard input}:15     .text.Spi_rx:00000000 $t
+    {standard input}:20     .text.Spi_rx:00000000 Spi_rx
+    {standard input}:73     .text.Spi_rx:00000060 $d
+                            *COM*:00000004 Spi_Genrl_T
+                            *COM*:00000027 Spi_Phcall_T
+                            *COM*:00000020 Spi_Navi_T
+                            *COM*:0000001b Spi_Music_T
+    {standard input}:84     .text.set_ble_connectivity_status:00000000 $t
+    {standard input}:89     .text.set_ble_connectivity_status:00000000 set_ble_connectivity_status
+    {standard input}:97     .text.set_ble_connectivity_status:00000008 $d
+    {standard input}:100    .text.set_ble_Data_Availablity:00000000 $t
+    {standard input}:105    .text.set_ble_Data_Availablity:00000000 set_ble_Data_Availablity
+    {standard input}:116    .text.set_ble_Data_Availablity:0000000c $d
+    {standard input}:119    .text.set_ble_general_data:00000000 $t
+    {standard input}:124    .text.set_ble_general_data:00000000 set_ble_general_data
+    {standard input}:134    .text.set_ble_general_data:0000000c $d
+    {standard input}:137    .text.set_ble_phone_call_data:00000000 $t
+    {standard input}:142    .text.set_ble_phone_call_data:00000000 set_ble_phone_call_data
+    {standard input}:152    .text.set_ble_phone_call_data:0000000c $d
+    {standard input}:155    .text.set_ble_navigation_data:00000000 $t
+    {standard input}:160    .text.set_ble_navigation_data:00000000 set_ble_navigation_data
+    {standard input}:170    .text.set_ble_navigation_data:0000000c $d
+    {standard input}:173    .text.set_ble_music_player_data:00000000 $t
+    {standard input}:178    .text.set_ble_music_player_data:00000000 set_ble_music_player_data
+    {standard input}:188    .text.set_ble_music_player_data:0000000c $d
+    {standard input}:191    .text.set_ble_gopro_data:00000000 $t
+    {standard input}:196    .text.set_ble_gopro_data:00000000 set_ble_gopro_data
+    {standard input}:206    .text.set_ble_gopro_data:0000000c $d
+    {standard input}:209    .text.set_ble_paired_devices:00000000 $t
+    {standard input}:214    .text.set_ble_paired_devices:00000000 set_ble_paired_devices
+    {standard input}:224    .text.set_ble_paired_devices:0000000c $d
+    {standard input}:227    .text.set_ble_reserved_1:00000000 $t
+    {standard input}:232    .text.set_ble_reserved_1:00000000 set_ble_reserved_1
+    {standard input}:241    .text.set_ble_reserved_1:00000008 $d
+    {standard input}:244    .text.set_Total_message_size:00000000 $t
+    {standard input}:249    .text.set_Total_message_size:00000000 set_Total_message_size
+    {standard input}:257    .text.set_Total_message_size:00000008 $d
+    {standard input}:260    .text.set_Reserved_1:00000000 $t
+    {standard input}:265    .text.set_Reserved_1:00000000 set_Reserved_1
+    {standard input}:273    .text.set_Reserved_1:00000008 $d
+    {standard input}:276    .text.set_Phone_Data_Availablity:00000000 $t
+    {standard input}:281    .text.set_Phone_Data_Availablity:00000000 set_Phone_Data_Availablity
+    {standard input}:292    .text.set_Phone_Data_Availablity:0000000c $d
+    {standard input}:295    .text.set_Phone_Message_Notification:00000000 $t
+    {standard input}:300    .text.set_Phone_Message_Notification:00000000 set_Phone_Message_Notification
+    {standard input}:310    .text.set_Phone_Message_Notification:0000000c $d
+    {standard input}:313    .text.set_Phone_Incomming_call:00000000 $t
+    {standard input}:318    .text.set_Phone_Incomming_call:00000000 set_Phone_Incomming_call
+    {standard input}:328    .text.set_Phone_Incomming_call:0000000c $d
+    {standard input}:331    .text.set_Phone_Ongoing_Call_notifiaction:00000000 $t
+    {standard input}:336    .text.set_Phone_Ongoing_Call_notifiaction:00000000 set_Phone_Ongoing_Call_notifiaction
+    {standard input}:346    .text.set_Phone_Ongoing_Call_notifiaction:0000000c $d
+    {standard input}:349    .text.set_Phone_End_Call:00000000 $t
+    {standard input}:354    .text.set_Phone_End_Call:00000000 set_Phone_End_Call
+    {standard input}:364    .text.set_Phone_End_Call:0000000c $d
+    {standard input}:367    .text.set_Phone_Missed_Call_Notification:00000000 $t
+    {standard input}:372    .text.set_Phone_Missed_Call_Notification:00000000 set_Phone_Missed_Call_Notification
+    {standard input}:382    .text.set_Phone_Missed_Call_Notification:0000000c $d
+    {standard input}:385    .text.set_phone_reserved_1:00000000 $t
+    {standard input}:390    .text.set_phone_reserved_1:00000000 set_phone_reserved_1
+    {standard input}:399    .text.set_phone_reserved_1:00000008 $d
+    {standard input}:402    .text.set_Phone_volume:00000000 $t
+    {standard input}:407    .text.set_Phone_volume:00000000 set_Phone_volume
+    {standard input}:415    .text.set_Phone_volume:00000008 $d
+    {standard input}:418    .text.set_Phone_Ongoing_call_Timer_Start:00000000 $t
+    {standard input}:423    .text.set_Phone_Ongoing_call_Timer_Start:00000000 set_Phone_Ongoing_call_Timer_Start
+    {standard input}:434    .text.set_Phone_Ongoing_call_Timer_Start:0000000c $d
+    {standard input}:437    .text.set_Phone_Ongoing_call_Timer_Stop:00000000 $t
+    {standard input}:442    .text.set_Phone_Ongoing_call_Timer_Stop:00000000 set_Phone_Ongoing_call_Timer_Stop
+    {standard input}:452    .text.set_Phone_Ongoing_call_Timer_Stop:0000000c $d
+    {standard input}:455    .text.set_Phone_Caller_Name_Identifier:00000000 $t
+    {standard input}:460    .text.set_Phone_Caller_Name_Identifier:00000000 set_Phone_Caller_Name_Identifier
+    {standard input}:468    .text.set_Phone_Caller_Name_Identifier:00000008 $d
+    {standard input}:471    .text.set_Call_name_size:00000000 $t
+    {standard input}:476    .text.set_Call_name_size:00000000 set_Call_name_size
+    {standard input}:484    .text.set_Call_name_size:00000008 $d
+    {standard input}:487    .text.set_Call_name:00000000 $t
+    {standard input}:492    .text.set_Call_name:00000000 set_Call_name
+    {standard input}:499    .text.set_Call_name:00000004 $d
+    {standard input}:502    .text.set_Phone_Caller_Number_Identifier:00000000 $t
+    {standard input}:507    .text.set_Phone_Caller_Number_Identifier:00000000 set_Phone_Caller_Number_Identifier
+    {standard input}:515    .text.set_Phone_Caller_Number_Identifier:00000008 $d
+    {standard input}:518    .text.set_Call_num_size:00000000 $t
+    {standard input}:523    .text.set_Call_num_size:00000000 set_Call_num_size
+    {standard input}:531    .text.set_Call_num_size:00000008 $d
+    {standard input}:534    .text.set_Call_num:00000000 $t
+    {standard input}:539    .text.set_Call_num:00000000 set_Call_num
+    {standard input}:546    .text.set_Call_num:00000004 $d
+    {standard input}:549    .text.set_Reserved_2:00000000 $t
+    {standard input}:554    .text.set_Reserved_2:00000000 set_Reserved_2
+    {standard input}:561    .text.set_Reserved_2:00000004 $d
+    {standard input}:564    .text.set_Navigation_Data_Availablity:00000000 $t
+    {standard input}:569    .text.set_Navigation_Data_Availablity:00000000 set_Navigation_Data_Availablity
+    {standard input}:580    .text.set_Navigation_Data_Availablity:0000000c $d
+    {standard input}:583    .text.set_Navigation_Turn_Type:00000000 $t
+    {standard input}:588    .text.set_Navigation_Turn_Type:00000000 set_Navigation_Turn_Type
+    {standard input}:597    .text.set_Navigation_Turn_Type:00000008 $d
+    {standard input}:600    .text.set_Navigation_Turn_Distance_Identifier:00000000 $t
+    {standard input}:605    .text.set_Navigation_Turn_Distance_Identifier:00000000 set_Navigation_Turn_Distance_Identifier
+    {standard input}:613    .text.set_Navigation_Turn_Distance_Identifier:00000008 $d
+    {standard input}:616    .text.set_Navigation_Turn_Distance_Size:00000000 $t
+    {standard input}:621    .text.set_Navigation_Turn_Distance_Size:00000000 set_Navigation_Turn_Distance_Size
+    {standard input}:629    .text.set_Navigation_Turn_Distance_Size:00000008 $d
+    {standard input}:632    .text.set_Navigation_Turn_Distance:00000000 $t
+    {standard input}:637    .text.set_Navigation_Turn_Distance:00000000 set_Navigation_Turn_Distance
+    {standard input}:644    .text.set_Navigation_Turn_Distance:00000004 $d
+    {standard input}:647    .text.set_Navigation_Overall_Distance_Identifier:00000000 $t
+    {standard input}:652    .text.set_Navigation_Overall_Distance_Identifier:00000000 set_Navigation_Overall_Distance_Identifier
+    {standard input}:660    .text.set_Navigation_Overall_Distance_Identifier:00000008 $d
+    {standard input}:663    .text.set_Navigation_Overall_Distance_Size:00000000 $t
+    {standard input}:668    .text.set_Navigation_Overall_Distance_Size:00000000 set_Navigation_Overall_Distance_Size
+    {standard input}:676    .text.set_Navigation_Overall_Distance_Size:00000008 $d
+    {standard input}:679    .text.set_Navigation_Overall_Distance:00000000 $t
+    {standard input}:684    .text.set_Navigation_Overall_Distance:00000000 set_Navigation_Overall_Distance
+    {standard input}:691    .text.set_Navigation_Overall_Distance:00000004 $d
+    {standard input}:694    .text.set_Navigation_ETA_Identifier:00000000 $t
+    {standard input}:699    .text.set_Navigation_ETA_Identifier:00000000 set_Navigation_ETA_Identifier
+    {standard input}:707    .text.set_Navigation_ETA_Identifier:00000008 $d
+    {standard input}:710    .text.set_Navigation_ETA_Hours:00000000 $t
+    {standard input}:715    .text.set_Navigation_ETA_Hours:00000000 set_Navigation_ETA_Hours
+    {standard input}:723    .text.set_Navigation_ETA_Hours:00000008 $d
+    {standard input}:726    .text.set_Navigation_ETA_Minutes:00000000 $t
+    {standard input}:731    .text.set_Navigation_ETA_Minutes:00000000 set_Navigation_ETA_Minutes
+    {standard input}:739    .text.set_Navigation_ETA_Minutes:00000008 $d
+    {standard input}:742    .text.set_Navigation_Reserved:00000000 $t
+    {standard input}:747    .text.set_Navigation_Reserved:00000000 set_Navigation_Reserved
+    {standard input}:754    .text.set_Navigation_Reserved:00000004 $d
+    {standard input}:757    .text.set_Music_Player_Data_Availablity:00000000 $t
+    {standard input}:762    .text.set_Music_Player_Data_Availablity:00000000 set_Music_Player_Data_Availablity
+    {standard input}:773    .text.set_Music_Player_Data_Availablity:0000000c $d
+    {standard input}:776    .text.set_Music_Player_Song_Status:00000000 $t
+    {standard input}:781    .text.set_Music_Player_Song_Status:00000000 set_Music_Player_Song_Status
+    {standard input}:791    .text.set_Music_Player_Song_Status:0000000c $d
+    {standard input}:794    .text.set_Music_Player_reserved_1:00000000 $t
+    {standard input}:799    .text.set_Music_Player_reserved_1:00000000 set_Music_Player_reserved_1
+    {standard input}:808    .text.set_Music_Player_reserved_1:00000008 $d
+    {standard input}:811    .text.set_Music_Player_Volume:00000000 $t
+    {standard input}:816    .text.set_Music_Player_Volume:00000000 set_Music_Player_Volume
+    {standard input}:824    .text.set_Music_Player_Volume:00000008 $d
+    {standard input}:827    .text.set_Music_Player_Song_Name_Identifier:00000000 $t
+    {standard input}:832    .text.set_Music_Player_Song_Name_Identifier:00000000 set_Music_Player_Song_Name_Identifier
+    {standard input}:840    .text.set_Music_Player_Song_Name_Identifier:00000008 $d
+    {standard input}:843    .text.set_Music_Player_Song_Name_Size:00000000 $t
+    {standard input}:848    .text.set_Music_Player_Song_Name_Size:00000000 set_Music_Player_Song_Name_Size
+    {standard input}:856    .text.set_Music_Player_Song_Name_Size:00000008 $d
+    {standard input}:859    .text.set_Music_Player_Song_Name:00000000 $t
+    {standard input}:864    .text.set_Music_Player_Song_Name:00000000 set_Music_Player_Song_Name
+    {standard input}:871    .text.set_Music_Player_Song_Name:00000004 $d
+    {standard input}:874    .text.set_Music_Player_Total_Min:00000000 $t
+    {standard input}:879    .text.set_Music_Player_Total_Min:00000000 set_Music_Player_Total_Min
+    {standard input}:887    .text.set_Music_Player_Total_Min:00000008 $d
+    {standard input}:890    .text.set_Music_Player_Total_Sec:00000000 $t
+    {standard input}:895    .text.set_Music_Player_Total_Sec:00000000 set_Music_Player_Total_Sec
+    {standard input}:903    .text.set_Music_Player_Total_Sec:00000008 $d
+    {standard input}:906    .text.set_Music_Player_Current_Playing_Min:00000000 $t
+    {standard input}:911    .text.set_Music_Player_Current_Playing_Min:00000000 set_Music_Player_Current_Playing_Min
+    {standard input}:919    .text.set_Music_Player_Current_Playing_Min:00000008 $d
+    {standard input}:922    .text.set_Music_Player_Current_Playing_Sec:00000000 $t
+    {standard input}:927    .text.set_Music_Player_Current_Playing_Sec:00000000 set_Music_Player_Current_Playing_Sec
+    {standard input}:935    .text.set_Music_Player_Current_Playing_Sec:00000008 $d
+    {standard input}:938    .text.set_Music_Player_Reserved:00000000 $t
+    {standard input}:943    .text.set_Music_Player_Reserved:00000000 set_Music_Player_Reserved
+    {standard input}:950    .text.set_Music_Player_Reserved:00000004 $d
+    {standard input}:962    .bss.Send_Data:00000000 Send_Data
+    {standard input}:968    .bss.Spi_Data:00000000 Spi_Data
+    {standard input}:963    .bss.Send_Data:00000000 $d
+    {standard input}:969    .bss.Spi_Data:00000000 $d
+
+UNDEFINED SYMBOLS
+SPI_SLAVE_Receive
+memcpy
+SPI_SLAVE_Transmit
+SPI_SLAVE_0
+DIGITAL_IO_6

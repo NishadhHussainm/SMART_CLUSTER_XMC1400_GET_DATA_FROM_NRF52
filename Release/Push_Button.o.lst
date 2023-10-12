@@ -1,0 +1,131 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "Push_Button.c"
+  14              	 .section .text.Set_button,"ax",%progbits
+  15              	 .align 1
+  16              	 .global Set_button
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	Set_button:
+  21 0000 1E4A     	 ldr r2,.L11
+  22 0002 0121     	 mov r1,#1
+  23 0004 1368     	 ldr r3,[r2]
+  24 0006 127B     	 ldrb r2,[r2,#12]
+  25 0008 5B6A     	 ldr r3,[r3,#36]
+  26 000a D340     	 lsr r3,r3,r2
+  27 000c 1A1C     	 mov r2,r3
+  28 000e 1C4B     	 ldr r3,.L11+4
+  29 0010 0A40     	 and r2,r1
+  30 0012 8A42     	 cmp r2,r1
+  31 0014 01D1     	 bne .L2
+  32 0016 1978     	 ldrb r1,[r3]
+  33 0018 26E0     	 b .L9
+  34              	.L2:
+  35 001a 1A48     	 ldr r0,.L11+8
+  36 001c 0268     	 ldr r2,[r0]
+  37 001e 007B     	 ldrb r0,[r0,#12]
+  38 0020 526A     	 ldr r2,[r2,#36]
+  39 0022 C240     	 lsr r2,r2,r0
+  40 0024 0A42     	 tst r2,r1
+  41 0026 02D0     	 beq .L4
+  42 0028 1A78     	 ldrb r2,[r3]
+  43 002a 0221     	 mov r1,#2
+  44 002c 1CE0     	 b .L9
+  45              	.L4:
+  46 002e 1648     	 ldr r0,.L11+12
+  47 0030 0268     	 ldr r2,[r0]
+  48 0032 007B     	 ldrb r0,[r0,#12]
+  49 0034 526A     	 ldr r2,[r2,#36]
+  50 0036 C240     	 lsr r2,r2,r0
+  51 0038 0A42     	 tst r2,r1
+  52 003a 02D0     	 beq .L5
+  53 003c 1A78     	 ldrb r2,[r3]
+  54 003e 0321     	 mov r1,#3
+  55 0040 12E0     	 b .L9
+  56              	.L5:
+  57 0042 1248     	 ldr r0,.L11+16
+  58 0044 0268     	 ldr r2,[r0]
+  59 0046 007B     	 ldrb r0,[r0,#12]
+  60 0048 526A     	 ldr r2,[r2,#36]
+  61 004a C240     	 lsr r2,r2,r0
+  62 004c 0A42     	 tst r2,r1
+  63 004e 02D0     	 beq .L6
+  64 0050 1A78     	 ldrb r2,[r3]
+  65 0052 0421     	 mov r1,#4
+  66 0054 08E0     	 b .L9
+  67              	.L6:
+  68 0056 0E48     	 ldr r0,.L11+20
+  69 0058 0268     	 ldr r2,[r0]
+  70 005a 007B     	 ldrb r0,[r0,#12]
+  71 005c 526A     	 ldr r2,[r2,#36]
+  72 005e C240     	 lsr r2,r2,r0
+  73 0060 0A42     	 tst r2,r1
+  74 0062 03D0     	 beq .L7
+  75 0064 0521     	 mov r1,#5
+  76 0066 1A78     	 ldrb r2,[r3]
+  77              	.L9:
+  78 0068 0A43     	 orr r2,r1
+  79 006a 02E0     	 b .L8
+  80              	.L7:
+  81 006c 0721     	 mov r1,#7
+  82 006e 1A78     	 ldrb r2,[r3]
+  83 0070 8A43     	 bic r2,r1
+  84              	.L8:
+  85 0072 1A70     	 strb r2,[r3]
+  86 0074 1878     	 ldrb r0,[r3]
+  87              	 
+  88 0076 4007     	 lsl r0,r0,#29
+  89 0078 400F     	 lsr r0,r0,#29
+  90 007a 7047     	 bx lr
+  91              	.L12:
+  92              	 .align 2
+  93              	.L11:
+  94 007c 00000000 	 .word DIGITAL_IO_0
+  95 0080 00000000 	 .word Push
+  96 0084 00000000 	 .word DIGITAL_IO_1
+  97 0088 00000000 	 .word DIGITAL_IO_2
+  98 008c 00000000 	 .word DIGITAL_IO_3
+  99 0090 00000000 	 .word DIGITAL_IO_4
+ 101              	 .section .text.set_Button_reserved_bit,"ax",%progbits
+ 102              	 .align 1
+ 103              	 .global set_Button_reserved_bit
+ 104              	 .code 16
+ 105              	 .thumb_func
+ 107              	set_Button_reserved_bit:
+ 108 0000 0020     	 mov r0,#0
+ 109 0002 014B     	 ldr r3,.L14
+ 110              	 
+ 111 0004 5870     	 strb r0,[r3,#1]
+ 112 0006 7047     	 bx lr
+ 113              	.L15:
+ 114              	 .align 2
+ 115              	.L14:
+ 116 0008 00000000 	 .word Push
+ 118              	 .comm Push,2,1
+ 119              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Push_Button.c
+    {standard input}:15     .text.Set_button:00000000 $t
+    {standard input}:20     .text.Set_button:00000000 Set_button
+    {standard input}:94     .text.Set_button:0000007c $d
+                            *COM*:00000002 Push
+    {standard input}:102    .text.set_Button_reserved_bit:00000000 $t
+    {standard input}:107    .text.set_Button_reserved_bit:00000000 set_Button_reserved_bit
+    {standard input}:116    .text.set_Button_reserved_bit:00000008 $d
+
+UNDEFINED SYMBOLS
+DIGITAL_IO_0
+DIGITAL_IO_1
+DIGITAL_IO_2
+DIGITAL_IO_3
+DIGITAL_IO_4

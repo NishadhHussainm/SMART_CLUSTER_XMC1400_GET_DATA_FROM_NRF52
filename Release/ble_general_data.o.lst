@@ -1,0 +1,51 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "ble_general_data.c"
+  14              	 .section .text.setBlegnrldata,"ax",%progbits
+  15              	 .align 1
+  16              	 .global setBlegnrldata
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	setBlegnrldata:
+  21 0000 08B5     	 push {r3,lr}
+  22 0002 011C     	 mov r1,r0
+  23 0004 0A22     	 mov r2,#10
+  24 0006 0248     	 ldr r0,.L2
+  25 0008 FFF7FEFF 	 bl memcpy
+  26              	 
+  27 000c 08BD     	 pop {r3,pc}
+  28              	.L3:
+  29 000e C046     	 .align 2
+  30              	.L2:
+  31 0010 00000000 	 .word ble_gnrl_D
+  33              	 .section .text.getBlegnrldata,"ax",%progbits
+  34              	 .align 1
+  35              	 .global getBlegnrldata
+  36              	 .code 16
+  37              	 .thumb_func
+  39              	getBlegnrldata:
+  40              	 
+  41 0000 7047     	 bx lr
+  43              	 .comm ble_gnrl_D,10,1
+  44              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ble_general_data.c
+    {standard input}:15     .text.setBlegnrldata:00000000 $t
+    {standard input}:20     .text.setBlegnrldata:00000000 setBlegnrldata
+    {standard input}:31     .text.setBlegnrldata:00000010 $d
+                            *COM*:0000000a ble_gnrl_D
+    {standard input}:34     .text.getBlegnrldata:00000000 $t
+    {standard input}:39     .text.getBlegnrldata:00000000 getBlegnrldata
+
+UNDEFINED SYMBOLS
+memcpy

@@ -1,0 +1,126 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "digital_io_conf.c"
+  14              	 .global DIGITAL_IO_7
+  15              	 .global DIGITAL_IO_6
+  16              	 .global DIGITAL_IO_5
+  17              	 .global DIGITAL_IO_4
+  18              	 .global DIGITAL_IO_3
+  19              	 .global DIGITAL_IO_2
+  20              	 .global DIGITAL_IO_1
+  21              	 .global DIGITAL_IO_0
+  22              	 .section .rodata.DIGITAL_IO_0,"a",%progbits
+  23              	 .align 2
+  26              	DIGITAL_IO_0:
+  27 0000 00010440 	 .word 1074004224
+  28 0004 18       	 .byte 24
+  29 0005 00       	 .byte 0
+  30 0006 00000000 	 .space 6
+  30      0000
+  31 000c 00       	 .byte 0
+  32 000d 00       	 .byte 0
+  33 000e 0000     	 .space 2
+  34              	 .section .rodata.DIGITAL_IO_1,"a",%progbits
+  35              	 .align 2
+  38              	DIGITAL_IO_1:
+  39 0000 00010440 	 .word 1074004224
+  40 0004 18       	 .byte 24
+  41 0005 00       	 .byte 0
+  42 0006 00000000 	 .space 6
+  42      0000
+  43 000c 05       	 .byte 5
+  44 000d 00       	 .byte 0
+  45 000e 0000     	 .space 2
+  46              	 .section .rodata.DIGITAL_IO_2,"a",%progbits
+  47              	 .align 2
+  50              	DIGITAL_IO_2:
+  51 0000 00010440 	 .word 1074004224
+  52 0004 18       	 .byte 24
+  53 0005 00       	 .byte 0
+  54 0006 00000000 	 .space 6
+  54      0000
+  55 000c 04       	 .byte 4
+  56 000d 00       	 .byte 0
+  57 000e 0000     	 .space 2
+  58              	 .section .rodata.DIGITAL_IO_3,"a",%progbits
+  59              	 .align 2
+  62              	DIGITAL_IO_3:
+  63 0000 00040440 	 .word 1074004992
+  64 0004 80       	 .byte -128
+  65 0005 000000   	 .space 3
+  66 0008 01000000 	 .word 1
+  67 000c 03       	 .byte 3
+  68 000d 00       	 .byte 0
+  69 000e 0000     	 .space 2
+  70              	 .section .rodata.DIGITAL_IO_4,"a",%progbits
+  71              	 .align 2
+  74              	DIGITAL_IO_4:
+  75 0000 00020440 	 .word 1074004480
+  76 0004 18       	 .byte 24
+  77 0005 00       	 .byte 0
+  78 0006 00000000 	 .space 6
+  78      0000
+  79 000c 05       	 .byte 5
+  80 000d 00       	 .byte 0
+  81 000e 0000     	 .space 2
+  82              	 .section .rodata.DIGITAL_IO_5,"a",%progbits
+  83              	 .align 2
+  86              	DIGITAL_IO_5:
+  87 0000 00040440 	 .word 1074004992
+  88 0004 80       	 .byte -128
+  89 0005 000000   	 .space 3
+  90 0008 01000000 	 .word 1
+  91 000c 00       	 .byte 0
+  92 000d 00       	 .byte 0
+  93 000e 0000     	 .space 2
+  94              	 .section .rodata.DIGITAL_IO_6,"a",%progbits
+  95              	 .align 2
+  98              	DIGITAL_IO_6:
+  99 0000 00040440 	 .word 1074004992
+ 100 0004 80       	 .byte -128
+ 101 0005 000000   	 .space 3
+ 102 0008 01000000 	 .word 1
+ 103 000c 01       	 .byte 1
+ 104 000d 00       	 .byte 0
+ 105 000e 0000     	 .space 2
+ 106              	 .section .rodata.DIGITAL_IO_7,"a",%progbits
+ 107              	 .align 2
+ 110              	DIGITAL_IO_7:
+ 111 0000 00040440 	 .word 1074004992
+ 112 0004 80       	 .byte -128
+ 113 0005 000000   	 .space 3
+ 114 0008 01000000 	 .word 1
+ 115 000c 02       	 .byte 2
+ 116 000d 00       	 .byte 0
+ 117 000e 0000     	 .space 2
+ 118              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 digital_io_conf.c
+    {standard input}:110    .rodata.DIGITAL_IO_7:00000000 DIGITAL_IO_7
+    {standard input}:98     .rodata.DIGITAL_IO_6:00000000 DIGITAL_IO_6
+    {standard input}:86     .rodata.DIGITAL_IO_5:00000000 DIGITAL_IO_5
+    {standard input}:74     .rodata.DIGITAL_IO_4:00000000 DIGITAL_IO_4
+    {standard input}:62     .rodata.DIGITAL_IO_3:00000000 DIGITAL_IO_3
+    {standard input}:50     .rodata.DIGITAL_IO_2:00000000 DIGITAL_IO_2
+    {standard input}:38     .rodata.DIGITAL_IO_1:00000000 DIGITAL_IO_1
+    {standard input}:26     .rodata.DIGITAL_IO_0:00000000 DIGITAL_IO_0
+    {standard input}:23     .rodata.DIGITAL_IO_0:00000000 $d
+    {standard input}:35     .rodata.DIGITAL_IO_1:00000000 $d
+    {standard input}:47     .rodata.DIGITAL_IO_2:00000000 $d
+    {standard input}:59     .rodata.DIGITAL_IO_3:00000000 $d
+    {standard input}:71     .rodata.DIGITAL_IO_4:00000000 $d
+    {standard input}:83     .rodata.DIGITAL_IO_5:00000000 $d
+    {standard input}:95     .rodata.DIGITAL_IO_6:00000000 $d
+    {standard input}:107    .rodata.DIGITAL_IO_7:00000000 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,441 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "can_node.c"
+  14              	 .section .text.CAN_NODE_GetAppVersion,"ax",%progbits
+  15              	 .align 1
+  16              	 .global CAN_NODE_GetAppVersion
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	CAN_NODE_GetAppVersion:
+  21 0000 0148     	 ldr r0,.L2
+  22 0002 82B0     	 sub sp,sp,#8
+  23 0004 02B0     	 add sp,sp,#8
+  24              	 
+  25 0006 7047     	 bx lr
+  26              	.L3:
+  27              	 .align 2
+  28              	.L2:
+  29 0008 04011800 	 .word 1573124
+  31              	 .section .text.CAN_NODE_EnableEvent,"ax",%progbits
+  32              	 .align 1
+  33              	 .global CAN_NODE_EnableEvent
+  34              	 .code 16
+  35              	 .thumb_func
+  37              	CAN_NODE_EnableEvent:
+  38 0000 08B5     	 push {r3,lr}
+  39 0002 4068     	 ldr r0,[r0,#4]
+  40 0004 FFF7FEFF 	 bl XMC_CAN_NODE_EnableEvent
+  41              	 
+  42 0008 08BD     	 pop {r3,pc}
+  44              	 .section .text.CAN_NODE_ConfigBaudrate,"ax",%progbits
+  45              	 .align 1
+  46              	 .global CAN_NODE_ConfigBaudrate
+  47              	 .code 16
+  48              	 .thumb_func
+  50              	CAN_NODE_ConfigBaudrate:
+  51 0000 38B5     	 push {r3,r4,r5,lr}
+  52 0002 0C1C     	 mov r4,r1
+  53 0004 8168     	 ldr r1,[r0,#8]
+  54 0006 4568     	 ldr r5,[r0,#4]
+  55 0008 4C60     	 str r4,[r1,#4]
+  56 000a 6424     	 mov r4,#100
+  57 000c 6243     	 mul r2,r4
+  58 000e 281C     	 mov r0,r5
+  59 0010 0A81     	 strh r2,[r1,#8]
+  60 0012 4B81     	 strh r3,[r1,#10]
+  61 0014 FFF7FEFF 	 bl XMC_CAN_NODE_NominalBitTimeConfigure
+  62              	 
+  63 0018 38BD     	 pop {r3,r4,r5,pc}
+  65              	 .section .text.CAN_NODE_MO_Init,"ax",%progbits
+  66              	 .align 1
+  67              	 .global CAN_NODE_MO_Init
+  68              	 .code 16
+  69              	 .thumb_func
+  71              	CAN_NODE_MO_Init:
+  72 0000 10B5     	 push {r4,lr}
+  73 0002 041C     	 mov r4,r0
+  74 0004 0068     	 ldr r0,[r0]
+  75 0006 FFF7FEFF 	 bl XMC_CAN_MO_Config
+  76 000a E379     	 ldrb r3,[r4,#7]
+  77 000c 002B     	 cmp r3,#0
+  78 000e 0DD0     	 beq .L7
+  79 0010 7020     	 mov r0,#112
+  80 0012 2368     	 ldr r3,[r4]
+  81 0014 6179     	 ldrb r1,[r4,#5]
+  82 0016 1A68     	 ldr r2,[r3]
+  83 0018 0901     	 lsl r1,r1,#4
+  84 001a 9368     	 ldr r3,[r2,#8]
+  85 001c 8343     	 bic r3,r0
+  86 001e 0B43     	 orr r3,r1
+  87 0020 8021     	 mov r1,#128
+  88 0022 9360     	 str r3,[r2,#8]
+  89 0024 1368     	 ldr r3,[r2]
+  90 0026 8902     	 lsl r1,r1,#10
+  91 0028 0B43     	 orr r3,r1
+  92 002a 1360     	 str r3,[r2]
+  93              	.L7:
+  94 002c 237A     	 ldrb r3,[r4,#8]
+  95 002e 002B     	 cmp r3,#0
+  96 0030 0CD0     	 beq .L6
+  97 0032 0721     	 mov r1,#7
+  98 0034 2368     	 ldr r3,[r4]
+  99 0036 1B68     	 ldr r3,[r3]
+ 100 0038 9A68     	 ldr r2,[r3,#8]
+ 101 003a 8A43     	 bic r2,r1
+ 102 003c A179     	 ldrb r1,[r4,#6]
+ 103 003e 0A43     	 orr r2,r1
+ 104 0040 8021     	 mov r1,#128
+ 105 0042 9A60     	 str r2,[r3,#8]
+ 106 0044 1A68     	 ldr r2,[r3]
+ 107 0046 4902     	 lsl r1,r1,#9
+ 108 0048 0A43     	 orr r2,r1
+ 109 004a 1A60     	 str r2,[r3]
+ 110              	.L6:
+ 111              	 
+ 112 004c 10BD     	 pop {r4,pc}
+ 114              	 .section .text.CAN_NODE_MO_Transmit,"ax",%progbits
+ 115              	 .align 1
+ 116              	 .global CAN_NODE_MO_Transmit
+ 117              	 .code 16
+ 118              	 .thumb_func
+ 120              	CAN_NODE_MO_Transmit:
+ 121 0000 08B5     	 push {r3,lr}
+ 122 0002 0068     	 ldr r0,[r0]
+ 123 0004 FFF7FEFF 	 bl XMC_CAN_MO_Transmit
+ 124              	 
+ 125 0008 08BD     	 pop {r3,pc}
+ 127              	 .section .text.CAN_NODE_MO_Receive,"ax",%progbits
+ 128              	 .align 1
+ 129              	 .global CAN_NODE_MO_Receive
+ 130              	 .code 16
+ 131              	 .thumb_func
+ 133              	CAN_NODE_MO_Receive:
+ 134 0000 08B5     	 push {r3,lr}
+ 135 0002 0068     	 ldr r0,[r0]
+ 136 0004 FFF7FEFF 	 bl XMC_CAN_MO_Receive
+ 137              	 
+ 138 0008 08BD     	 pop {r3,pc}
+ 140              	 .section .text.CAN_NODE_MO_ReceiveData,"ax",%progbits
+ 141              	 .align 1
+ 142              	 .global CAN_NODE_MO_ReceiveData
+ 143              	 .code 16
+ 144              	 .thumb_func
+ 146              	CAN_NODE_MO_ReceiveData:
+ 147 0000 08B5     	 push {r3,lr}
+ 148 0002 0068     	 ldr r0,[r0]
+ 149 0004 FFF7FEFF 	 bl XMC_CAN_MO_ReceiveData
+ 150              	 
+ 151 0008 08BD     	 pop {r3,pc}
+ 153              	 .section .text.CAN_NODE_MO_UpdateData,"ax",%progbits
+ 154              	 .align 1
+ 155              	 .global CAN_NODE_MO_UpdateData
+ 156              	 .code 16
+ 157              	 .thumb_func
+ 159              	CAN_NODE_MO_UpdateData:
+ 160 0000 08B5     	 push {r3,lr}
+ 161 0002 0A68     	 ldr r2,[r1]
+ 162 0004 0368     	 ldr r3,[r0]
+ 163              	 
+ 164 0006 1A61     	 str r2,[r3,#16]
+ 165 0008 0368     	 ldr r3,[r0]
+ 166 000a 4A68     	 ldr r2,[r1,#4]
+ 167 000c 5A61     	 str r2,[r3,#20]
+ 168 000e 0068     	 ldr r0,[r0]
+ 169 0010 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 170 0014 08BD     	 pop {r3,pc}
+ 172              	 .section .text.CAN_NODE_MO_GetStatus,"ax",%progbits
+ 173              	 .align 1
+ 174              	 .global CAN_NODE_MO_GetStatus
+ 175              	 .code 16
+ 176              	 .thumb_func
+ 178              	CAN_NODE_MO_GetStatus:
+ 179 0000 0368     	 ldr r3,[r0]
+ 180              	 
+ 181 0002 1B68     	 ldr r3,[r3]
+ 182 0004 D869     	 ldr r0,[r3,#28]
+ 183 0006 7047     	 bx lr
+ 185              	 .section .text.CAN_NODE_MO_ClearStatus,"ax",%progbits
+ 186              	 .align 1
+ 187              	 .global CAN_NODE_MO_ClearStatus
+ 188              	 .code 16
+ 189              	 .thumb_func
+ 191              	CAN_NODE_MO_ClearStatus:
+ 192 0000 0368     	 ldr r3,[r0]
+ 193              	 
+ 194 0002 1B68     	 ldr r3,[r3]
+ 195 0004 D961     	 str r1,[r3,#28]
+ 196 0006 7047     	 bx lr
+ 198              	 .section .text.CAN_NODE_DisableEvent,"ax",%progbits
+ 199              	 .align 1
+ 200              	 .global CAN_NODE_DisableEvent
+ 201              	 .code 16
+ 202              	 .thumb_func
+ 204              	CAN_NODE_DisableEvent:
+ 205 0000 08B5     	 push {r3,lr}
+ 206 0002 4068     	 ldr r0,[r0,#4]
+ 207 0004 FFF7FEFF 	 bl XMC_CAN_NODE_DisableEvent
+ 208              	 
+ 209 0008 08BD     	 pop {r3,pc}
+ 211              	 .section .text.CAN_NODE_GetStatus,"ax",%progbits
+ 212              	 .align 1
+ 213              	 .global CAN_NODE_GetStatus
+ 214              	 .code 16
+ 215              	 .thumb_func
+ 217              	CAN_NODE_GetStatus:
+ 218 0000 4368     	 ldr r3,[r0,#4]
+ 219              	 
+ 220 0002 5868     	 ldr r0,[r3,#4]
+ 221 0004 7047     	 bx lr
+ 223              	 .section .text.CAN_NODE_ClearStatus,"ax",%progbits
+ 224              	 .align 1
+ 225              	 .global CAN_NODE_ClearStatus
+ 226              	 .code 16
+ 227              	 .thumb_func
+ 229              	CAN_NODE_ClearStatus:
+ 230 0000 4268     	 ldr r2,[r0,#4]
+ 231              	 
+ 232 0002 5368     	 ldr r3,[r2,#4]
+ 233 0004 8B43     	 bic r3,r1
+ 234 0006 5360     	 str r3,[r2,#4]
+ 235 0008 7047     	 bx lr
+ 237              	 .section .text.CAN_NODE_Init,"ax",%progbits
+ 238              	 .align 1
+ 239              	 .global CAN_NODE_Init
+ 240              	 .code 16
+ 241              	 .thumb_func
+ 243              	CAN_NODE_Init:
+ 244 0000 031C     	 mov r3,r0
+ 245 0002 F7B5     	 push {r0,r1,r2,r4,r5,r6,r7,lr}
+ 246 0004 9033     	 add r3,r3,#144
+ 247 0006 041C     	 mov r4,r0
+ 248 0008 0068     	 ldr r0,[r0]
+ 249 000a 1F68     	 ldr r7,[r3]
+ 250 000c FFF7FEFF 	 bl GLOBAL_CAN_Init
+ 251 0010 061E     	 sub r6,r0,#0
+ 252 0012 01D0     	 beq .L26
+ 253              	.L28:
+ 254 0014 0126     	 mov r6,#1
+ 255 0016 9BE0     	 b .L27
+ 256              	.L26:
+ 257 0018 6068     	 ldr r0,[r4,#4]
+ 258 001a A168     	 ldr r1,[r4,#8]
+ 259 001c FFF7FEFF 	 bl XMC_CAN_NODE_NominalBitTimeConfigureEx
+ 260 0020 0028     	 cmp r0,#0
+ 261 0022 F7D1     	 bne .L28
+ 262 0024 4021     	 mov r1,#64
+ 263 0026 6368     	 ldr r3,[r4,#4]
+ 264 0028 1A68     	 ldr r2,[r3]
+ 265 002a 0A43     	 orr r2,r1
+ 266 002c 1A60     	 str r2,[r3]
+ 267 002e 1A68     	 ldr r2,[r3]
+ 268 0030 3F39     	 sub r1,r1,#63
+ 269 0032 0A43     	 orr r2,r1
+ 270 0034 1A60     	 str r2,[r3]
+ 271 0036 1A68     	 ldr r2,[r3]
+ 272 0038 7F31     	 add r1,r1,#127
+ 273 003a 8A43     	 bic r2,r1
+ 274 003c 1A60     	 str r2,[r3]
+ 275 003e 221C     	 mov r2,r4
+ 276 0040 A732     	 add r2,r2,#167
+ 277 0042 0192     	 str r2,[sp,#4]
+ 278 0044 1278     	 ldrb r2,[r2]
+ 279 0046 002A     	 cmp r2,#0
+ 280 0048 04D0     	 beq .L29
+ 281 004a DA68     	 ldr r2,[r3,#12]
+ 282 004c 8031     	 add r1,r1,#128
+ 283 004e 0A43     	 orr r2,r1
+ 284 0050 DA60     	 str r2,[r3,#12]
+ 285 0052 13E0     	 b .L30
+ 286              	.L29:
+ 287 0054 231C     	 mov r3,r4
+ 288 0056 9833     	 add r3,r3,#152
+ 289 0058 1B68     	 ldr r3,[r3]
+ 290 005a 1979     	 ldrb r1,[r3,#4]
+ 291 005c 1868     	 ldr r0,[r3]
+ 292 005e 231C     	 mov r3,r4
+ 293 0060 9C33     	 add r3,r3,#156
+ 294 0062 1A68     	 ldr r2,[r3]
+ 295 0064 FFF7FEFF 	 bl XMC_GPIO_Init
+ 296 0068 221C     	 mov r2,r4
+ 297 006a 0720     	 mov r0,#7
+ 298 006c 6168     	 ldr r1,[r4,#4]
+ 299 006e A032     	 add r2,r2,#160
+ 300 0070 CB68     	 ldr r3,[r1,#12]
+ 301 0072 1278     	 ldrb r2,[r2]
+ 302 0074 8343     	 bic r3,r0
+ 303 0076 0240     	 and r2,r0
+ 304 0078 1343     	 orr r3,r2
+ 305 007a CB60     	 str r3,[r1,#12]
+ 306              	.L30:
+ 307 007c 231C     	 mov r3,r4
+ 308 007e 0722     	 mov r2,#7
+ 309 0080 7025     	 mov r5,#112
+ 310 0082 6068     	 ldr r0,[r4,#4]
+ 311 0084 8C33     	 add r3,r3,#140
+ 312 0086 1968     	 ldr r1,[r3]
+ 313 0088 8368     	 ldr r3,[r0,#8]
+ 314 008a 9343     	 bic r3,r2
+ 315 008c 0A78     	 ldrb r2,[r1]
+ 316 008e 1343     	 orr r3,r2
+ 317 0090 8360     	 str r3,[r0,#8]
+ 318 0092 8368     	 ldr r3,[r0,#8]
+ 319 0094 4A78     	 ldrb r2,[r1,#1]
+ 320 0096 AB43     	 bic r3,r5
+ 321 0098 1201     	 lsl r2,r2,#4
+ 322 009a 1343     	 orr r3,r2
+ 323 009c 8360     	 str r3,[r0,#8]
+ 324 009e 8368     	 ldr r3,[r0,#8]
+ 325 00a0 8D78     	 ldrb r5,[r1,#2]
+ 326 00a2 2C4A     	 ldr r2,.L48
+ 327 00a4 2D02     	 lsl r5,r5,#8
+ 328 00a6 1340     	 and r3,r2
+ 329 00a8 2B43     	 orr r3,r5
+ 330 00aa 8360     	 str r3,[r0,#8]
+ 331 00ac 8368     	 ldr r3,[r0,#8]
+ 332 00ae C978     	 ldrb r1,[r1,#3]
+ 333 00b0 294A     	 ldr r2,.L48+4
+ 334 00b2 0903     	 lsl r1,r1,#12
+ 335 00b4 1340     	 and r3,r2
+ 336 00b6 0B43     	 orr r3,r1
+ 337 00b8 8360     	 str r3,[r0,#8]
+ 338 00ba 231C     	 mov r3,r4
+ 339 00bc A433     	 add r3,r3,#164
+ 340 00be 1978     	 ldrb r1,[r3]
+ 341 00c0 4B1E     	 sub r3,r1,#1
+ 342 00c2 9941     	 sbc r1,r1,r3
+ 343 00c4 231C     	 mov r3,r4
+ 344 00c6 A333     	 add r3,r3,#163
+ 345 00c8 1B78     	 ldrb r3,[r3]
+ 346 00ca 4900     	 lsl r1,r1,#1
+ 347 00cc 002B     	 cmp r3,#0
+ 348 00ce 01D0     	 beq .L32
+ 349 00d0 0423     	 mov r3,#4
+ 350 00d2 1943     	 orr r1,r3
+ 351              	.L32:
+ 352 00d4 231C     	 mov r3,r4
+ 353 00d6 A533     	 add r3,r3,#165
+ 354 00d8 1B78     	 ldrb r3,[r3]
+ 355 00da 002B     	 cmp r3,#0
+ 356 00dc 01D0     	 beq .L33
+ 357 00de 0823     	 mov r3,#8
+ 358 00e0 1943     	 orr r1,r3
+ 359              	.L33:
+ 360 00e2 FFF7FEFF 	 bl XMC_CAN_NODE_EnableEvent
+ 361 00e6 231C     	 mov r3,r4
+ 362 00e8 A633     	 add r3,r3,#166
+ 363 00ea 1B78     	 ldrb r3,[r3]
+ 364 00ec 002B     	 cmp r3,#0
+ 365 00ee 04D0     	 beq .L34
+ 366 00f0 8021     	 mov r1,#128
+ 367 00f2 6068     	 ldr r0,[r4,#4]
+ 368 00f4 C903     	 lsl r1,r1,#15
+ 369 00f6 FFF7FEFF 	 bl XMC_CAN_NODE_EnableEvent
+ 370              	.L34:
+ 371 00fa 0025     	 mov r5,#0
+ 372              	.L35:
+ 373 00fc 231C     	 mov r3,r4
+ 374 00fe A233     	 add r3,r3,#162
+ 375 0100 1B78     	 ldrb r3,[r3]
+ 376 0102 9D42     	 cmp r5,r3
+ 377 0104 11D2     	 bcs .L47
+ 378 0106 221C     	 mov r2,r4
+ 379 0108 AB00     	 lsl r3,r5,#2
+ 380 010a E318     	 add r3,r4,r3
+ 381 010c DB68     	 ldr r3,[r3,#12]
+ 382 010e A132     	 add r2,r2,#161
+ 383 0110 0093     	 str r3,[sp]
+ 384 0112 1178     	 ldrb r1,[r2]
+ 385 0114 2368     	 ldr r3,[r4]
+ 386 0116 009A     	 ldr r2,[sp]
+ 387 0118 5868     	 ldr r0,[r3,#4]
+ 388 011a 1279     	 ldrb r2,[r2,#4]
+ 389 011c FFF7FEFF 	 bl XMC_CAN_AllocateMOtoNodeList
+ 390 0120 0098     	 ldr r0,[sp]
+ 391 0122 FFF7FEFF 	 bl CAN_NODE_MO_Init
+ 392 0126 0135     	 add r5,r5,#1
+ 393 0128 E8E7     	 b .L35
+ 394              	.L47:
+ 395 012a 4021     	 mov r1,#64
+ 396 012c 6268     	 ldr r2,[r4,#4]
+ 397 012e 1368     	 ldr r3,[r2]
+ 398 0130 8B43     	 bic r3,r1
+ 399 0132 1360     	 str r3,[r2]
+ 400 0134 1368     	 ldr r3,[r2]
+ 401 0136 3F39     	 sub r1,r1,#63
+ 402 0138 8B43     	 bic r3,r1
+ 403 013a 1360     	 str r3,[r2]
+ 404 013c 019B     	 ldr r3,[sp,#4]
+ 405 013e 1B78     	 ldrb r3,[r3]
+ 406 0140 002B     	 cmp r3,#0
+ 407 0142 05D1     	 bne .L27
+ 408 0144 9434     	 add r4,r4,#148
+ 409 0146 3979     	 ldrb r1,[r7,#4]
+ 410 0148 3868     	 ldr r0,[r7]
+ 411 014a 2268     	 ldr r2,[r4]
+ 412 014c FFF7FEFF 	 bl XMC_GPIO_Init
+ 413              	.L27:
+ 414 0150 301C     	 mov r0,r6
+ 415              	 
+ 416 0152 FEBD     	 pop {r1,r2,r3,r4,r5,r6,r7,pc}
+ 417              	.L49:
+ 418              	 .align 2
+ 419              	.L48:
+ 420 0154 FFF8FFFF 	 .word -1793
+ 421 0158 FF8FFFFF 	 .word -28673
+ 423              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 can_node.c
+    {standard input}:15     .text.CAN_NODE_GetAppVersion:00000000 $t
+    {standard input}:20     .text.CAN_NODE_GetAppVersion:00000000 CAN_NODE_GetAppVersion
+    {standard input}:29     .text.CAN_NODE_GetAppVersion:00000008 $d
+    {standard input}:32     .text.CAN_NODE_EnableEvent:00000000 $t
+    {standard input}:37     .text.CAN_NODE_EnableEvent:00000000 CAN_NODE_EnableEvent
+    {standard input}:45     .text.CAN_NODE_ConfigBaudrate:00000000 $t
+    {standard input}:50     .text.CAN_NODE_ConfigBaudrate:00000000 CAN_NODE_ConfigBaudrate
+    {standard input}:66     .text.CAN_NODE_MO_Init:00000000 $t
+    {standard input}:71     .text.CAN_NODE_MO_Init:00000000 CAN_NODE_MO_Init
+    {standard input}:115    .text.CAN_NODE_MO_Transmit:00000000 $t
+    {standard input}:120    .text.CAN_NODE_MO_Transmit:00000000 CAN_NODE_MO_Transmit
+    {standard input}:128    .text.CAN_NODE_MO_Receive:00000000 $t
+    {standard input}:133    .text.CAN_NODE_MO_Receive:00000000 CAN_NODE_MO_Receive
+    {standard input}:141    .text.CAN_NODE_MO_ReceiveData:00000000 $t
+    {standard input}:146    .text.CAN_NODE_MO_ReceiveData:00000000 CAN_NODE_MO_ReceiveData
+    {standard input}:154    .text.CAN_NODE_MO_UpdateData:00000000 $t
+    {standard input}:159    .text.CAN_NODE_MO_UpdateData:00000000 CAN_NODE_MO_UpdateData
+    {standard input}:173    .text.CAN_NODE_MO_GetStatus:00000000 $t
+    {standard input}:178    .text.CAN_NODE_MO_GetStatus:00000000 CAN_NODE_MO_GetStatus
+    {standard input}:186    .text.CAN_NODE_MO_ClearStatus:00000000 $t
+    {standard input}:191    .text.CAN_NODE_MO_ClearStatus:00000000 CAN_NODE_MO_ClearStatus
+    {standard input}:199    .text.CAN_NODE_DisableEvent:00000000 $t
+    {standard input}:204    .text.CAN_NODE_DisableEvent:00000000 CAN_NODE_DisableEvent
+    {standard input}:212    .text.CAN_NODE_GetStatus:00000000 $t
+    {standard input}:217    .text.CAN_NODE_GetStatus:00000000 CAN_NODE_GetStatus
+    {standard input}:224    .text.CAN_NODE_ClearStatus:00000000 $t
+    {standard input}:229    .text.CAN_NODE_ClearStatus:00000000 CAN_NODE_ClearStatus
+    {standard input}:238    .text.CAN_NODE_Init:00000000 $t
+    {standard input}:243    .text.CAN_NODE_Init:00000000 CAN_NODE_Init
+    {standard input}:420    .text.CAN_NODE_Init:00000154 $d
+
+UNDEFINED SYMBOLS
+XMC_CAN_NODE_EnableEvent
+XMC_CAN_NODE_NominalBitTimeConfigure
+XMC_CAN_MO_Config
+XMC_CAN_MO_Transmit
+XMC_CAN_MO_Receive
+XMC_CAN_MO_ReceiveData
+XMC_CAN_MO_UpdateData
+XMC_CAN_NODE_DisableEvent
+GLOBAL_CAN_Init
+XMC_CAN_NODE_NominalBitTimeConfigureEx
+XMC_GPIO_Init
+XMC_CAN_AllocateMOtoNodeList
