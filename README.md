@@ -1,4 +1,4 @@
-Project Name: SMART_CLUSTER_XMC1400_GET_DATA_FROM_NRF52
+##Project Name: SMART_CLUSTER_XMC1400_GET_DATA_FROM_NRF52
 Overview
 This project involves retrieving data from an NRF52 device and transmitting it to an IMX6 device via UART with RS232 communication.
 
